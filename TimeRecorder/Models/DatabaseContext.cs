@@ -15,6 +15,18 @@ namespace TimeRecorder.Models
         // ReSharper disable once UnusedAutoPropertyAccessor.Local
         private DbSet<TimeStamp> TimeStamps { get; set; }
 
+        public void Add(TimeStampGroup group)
+        {
+            TimeStampGroups.Add(group);
+            SaveChanges();
+        }
+
+        public void Add(TimeStamp timeStamp)
+        {
+            TimeStamps.Add(timeStamp);
+            SaveChanges();
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!File.Exists(dbFileName))
