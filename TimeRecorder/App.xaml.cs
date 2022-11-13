@@ -13,6 +13,16 @@ namespace TimeRecorder
     {
         private int currentGroupId;
 
+        private DatabaseContext DatabaseContext
+        {
+            get
+            {
+                var context = new DatabaseContext();
+                context.Database.EnsureCreated();
+                return context;
+            }
+        }
+
         protected override Window CreateShell()
         {
             return Container.Resolve<MainWindow>();
@@ -22,8 +32,7 @@ namespace TimeRecorder
         {
             base.OnStartup(e);
 
-            var context = new DatabaseContext();
-            context.Database.EnsureCreated();
+            var context = DatabaseContext;
 
             var group = new TimeStampGroup() { DateTime = DateTime.Now };
             context.Add(group);
@@ -35,11 +44,8 @@ namespace TimeRecorder
 
         protected override void OnExit(ExitEventArgs e)
         {
-            var context = new DatabaseContext();
-            context.Database.EnsureCreated();
-
             var timeStamp = new TimeStamp() { Comment = "アプリ終了", GroupId = currentGroupId };
-            context.Add(timeStamp);
+            DatabaseContext.Add(timeStamp);
 
             base.OnExit(e);
         }
