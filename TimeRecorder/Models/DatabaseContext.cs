@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
+using System.Linq;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
@@ -25,6 +27,18 @@ namespace TimeRecorder.Models
         {
             TimeStamps.Add(timeStamp);
             SaveChanges();
+        }
+
+        public List<TimeStamp> GetTimeStamps(TimeStampGroup targetGroup)
+        {
+            return TimeStamps.Where(t => t.GroupId == targetGroup.Id)
+                .OrderBy(t => t.DateTime)
+                .ToList();
+        }
+
+        public TimeStampGroup GetLatestGroup()
+        {
+            return TimeStampGroups.OrderByDescending(t => t.DateTime).FirstOrDefault();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
