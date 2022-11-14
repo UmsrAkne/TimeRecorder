@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:TimeRecorder.Models"
     xmlns:prism="http://prismlibrary.com/"
@@ -22,6 +23,18 @@
             Modifiers="Control" />
 
     </Window.InputBindings>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Activated">
+            <i:InvokeCommandAction Command="{Binding AddTimeStampCommand}" CommandParameter="Activated" />
+        </i:EventTrigger>
+
+        <i:EventTrigger EventName="Deactivated">
+            <i:InvokeCommandAction Command="{Binding AddTimeStampCommand}" CommandParameter="Deactivated" />
+        </i:EventTrigger>
+
+    </i:Interaction.Triggers>
+
 
     <Grid>
         <Grid.RowDefinitions>
