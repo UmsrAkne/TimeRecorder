@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="clr-namespace:TimeRecorder.Models"
     xmlns:prism="http://prismlibrary.com/"
     xmlns:viewModels="clr-namespace:TimeRecorder.ViewModels"
     Title="{Binding Title}"
@@ -14,6 +15,56 @@
     mc:Ignorable="d">
 
     <Grid>
-        <ContentControl prism:RegionManager.RegionName="ContentRegion" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+
+        <ListView Grid.Row="1" ItemsSource="{Binding TimeStamps}">
+            <ListView.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:TimeStamp}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="{Binding DateTime}" />
+                        <TextBlock Grid.Column="1" Text="{Binding Comment}" />
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <StackPanel
+            Grid.Row="2"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Orientation="Horizontal">
+
+            <CheckBox />
+            <TextBlock Margin="5,0" Text="Activate を表示" />
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="2"
+            Margin="0,3"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+
+            <Button
+                Width="40"
+                Margin="5,0"
+                Content="prev" />
+
+            <Button
+                Width="40"
+                Margin="5,0"
+                Content="next" />
+
+        </StackPanel>
+
     </Grid>
 </Window>
