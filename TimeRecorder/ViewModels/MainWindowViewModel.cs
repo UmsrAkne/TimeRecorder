@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Prism.Commands;
 using Prism.Mvvm;
 using TimeRecorder.Models;
 
@@ -10,6 +11,8 @@ namespace TimeRecorder.ViewModels
         private string title = "Prism Application";
         private List<TimeStamp> timeStamps;
 
+        private DelegateCommand<string> addTimeStampCommand;
+
         public MainWindowViewModel()
         {
             currentGroup = GetDatabaseContext().GetLatestGroup();
@@ -18,6 +21,18 @@ namespace TimeRecorder.ViewModels
         public string Title { get => title; set => SetProperty(ref title, value); }
 
         public List<TimeStamp> TimeStamps { get => timeStamps; private set => SetProperty(ref timeStamps, value); }
+
+        public DelegateCommand<string> AddTimeStampCommand =>
+            addTimeStampCommand ??= new DelegateCommand<string>(comment =>
+            {
+                GetDatabaseContext().Add(new TimeStamp()
+                {
+                    Comment = comment,
+                    GroupId = currentGroup.Id,
+                });
+
+                UpdateTimeStamps();
+            });
 
         private void UpdateTimeStamps()
         {
