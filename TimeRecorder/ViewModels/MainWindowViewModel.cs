@@ -16,6 +16,7 @@ namespace TimeRecorder.ViewModels
         public MainWindowViewModel()
         {
             currentGroup = GetDatabaseContext().GetLatestGroup();
+            UpdateTimeStamps();
         }
 
         public string Title { get => title; set => SetProperty(ref title, value); }
