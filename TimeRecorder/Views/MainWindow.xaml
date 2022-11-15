@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:TimeRecorder.Models"
     xmlns:prism="http://prismlibrary.com/"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
     xmlns:viewModels="clr-namespace:TimeRecorder.ViewModels"
     Title="{Binding Title}"
     Width="525"
@@ -14,6 +15,13 @@
     d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
+
+    <Window.Resources>
+        <SolidColorBrush x:Key="ForegroundBrush" Color="WhiteSmoke" />
+        <SolidColorBrush x:Key="BackgroundBrush" Color="#222222" />
+        <system:Double x:Key="FontSize">14</system:Double>
+
+    </Window.Resources>
 
     <Window.InputBindings>
         <KeyBinding
@@ -36,14 +44,24 @@
     </i:Interaction.Triggers>
 
 
-    <Grid>
+    <Grid Background="{StaticResource BackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition />
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
 
-        <ListView Grid.Row="1" ItemsSource="{Binding TimeStamps}">
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+            </Style>
+        </Grid.Resources>
+
+        <ListView
+            Grid.Row="1"
+            Background="{StaticResource BackgroundBrush}"
+            ItemsSource="{Binding TimeStamps}">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:TimeStamp}">
                     <Grid>
@@ -51,6 +69,13 @@
                             <ColumnDefinition Width="150" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
+
+                        <Grid.Resources>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+                                <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+                            </Style>
+                        </Grid.Resources>
 
                         <TextBlock Grid.Column="0" Text="{Binding DateTime}" />
                         <TextBlock Grid.Column="1" Text="{Binding Comment}" />
