@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="clr-namespace:TimeRecorder.Models"
     xmlns:prism="http://prismlibrary.com/"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime"
     xmlns:viewModels="clr-namespace:TimeRecorder.ViewModels"
     Title="{Binding Title}"
     Width="525"
@@ -16,12 +17,10 @@
     mc:Ignorable="d">
 
     <Window.Resources>
-        <Style x:Key="TextBlockStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="14" />
-        </Style>
-
         <SolidColorBrush x:Key="ForegroundBrush" Color="WhiteSmoke" />
         <SolidColorBrush x:Key="BackgroundBrush" Color="#222222" />
+        <system:Double x:Key="FontSize">14</system:Double>
+
     </Window.Resources>
 
     <Window.InputBindings>
@@ -55,6 +54,7 @@
         <Grid.Resources>
             <Style TargetType="TextBlock">
                 <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize}" />
             </Style>
         </Grid.Resources>
 
@@ -73,6 +73,7 @@
                         <Grid.Resources>
                             <Style TargetType="TextBlock">
                                 <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+                                <Setter Property="FontSize" Value="{StaticResource FontSize}" />
                             </Style>
                         </Grid.Resources>
 
