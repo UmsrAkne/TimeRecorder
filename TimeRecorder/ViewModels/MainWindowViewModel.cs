@@ -40,13 +40,15 @@ namespace TimeRecorder.ViewModels
         public DelegateCommand<string> AddTimeStampCommand =>
             addTimeStampCommand ??= new DelegateCommand<string>(comment =>
             {
-                GetDatabaseContext().Add(new TimeStamp()
+                var timeStamp = new TimeStamp()
                 {
                     Comment = comment,
                     GroupId = currentGroup.Id,
-                });
+                };
 
+                GetDatabaseContext().Add(timeStamp);
                 UpdateTimeStamps();
+                Title = timeStamp.DateTime.ToString("MM/dd hh:mm:ss");
             });
 
         private void UpdateTimeStamps()
