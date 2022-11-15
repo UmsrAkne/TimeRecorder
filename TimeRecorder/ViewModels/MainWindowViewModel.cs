@@ -7,6 +7,7 @@ using TimeRecorder.Models;
 
 namespace TimeRecorder.ViewModels
 {
+    // ReSharper disable once ClassNeverInstantiated.Global
     public class MainWindowViewModel : BindableBase
     {
         private readonly TimeStampGroup currentGroup;
@@ -23,7 +24,7 @@ namespace TimeRecorder.ViewModels
             UpdateTimeStamps();
         }
 
-        public string Title { get => title; set => SetProperty(ref title, value); }
+        public string Title { get => title; private set => SetProperty(ref title, value); }
 
         public List<TimeStamp> TimeStamps { get => timeStamps; private set => SetProperty(ref timeStamps, value); }
 
