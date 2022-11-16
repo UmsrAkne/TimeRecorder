@@ -30,8 +30,6 @@ namespace TimeRecorder
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            base.OnStartup(e);
-
             var context = DatabaseContext;
 
             var group = new TimeStampGroup() { DateTime = DateTime.Now };
@@ -40,6 +38,8 @@ namespace TimeRecorder
 
             var timeStamp = new TimeStamp() { Comment = "アプリ起動", GroupId = currentGroupId };
             context.Add(timeStamp);
+
+            base.OnStartup(e);
         }
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)

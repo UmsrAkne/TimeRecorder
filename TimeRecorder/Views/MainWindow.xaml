@@ -108,11 +108,13 @@
             <Button
                 Width="40"
                 Margin="5,0"
+                Command="{Binding PrevHistoryCommand}"
                 Content="prev" />
 
             <Button
                 Width="40"
                 Margin="5,0"
+                Command="{Binding NextHistoryCommand}"
                 Content="next" />
 
         </StackPanel>

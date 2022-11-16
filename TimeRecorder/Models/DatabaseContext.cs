@@ -36,6 +36,11 @@ namespace TimeRecorder.Models
                 .ToList();
         }
 
+        public List<TimeStampGroup> GetGroups()
+        {
+            return TimeStampGroups.OrderBy(tsg => tsg.DateTime).ToList();
+        }
+
         public TimeStampGroup GetLatestGroup()
         {
             return TimeStampGroups.OrderByDescending(t => t.DateTime).FirstOrDefault();

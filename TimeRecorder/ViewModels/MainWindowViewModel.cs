@@ -10,12 +10,15 @@ namespace TimeRecorder.ViewModels
     // ReSharper disable once ClassNeverInstantiated.Global
     public class MainWindowViewModel : BindableBase
     {
-        private readonly TimeStampGroup currentGroup;
         private readonly TimeStampGroup latestGroup;
+        private TimeStampGroup currentGroup;
+
         private string title = "Prism Application";
         private List<TimeStamp> timeStamps;
 
         private DelegateCommand<string> addTimeStampCommand;
+        private DelegateCommand prevHistoryCommand;
+        private DelegateCommand nextHistoryCommand;
 
         private bool showActiveEventTimeStamp = true;
 
@@ -53,6 +56,38 @@ namespace TimeRecorder.ViewModels
                 context.Add(timeStamp);
                 UpdateTimeStamps();
                 Title = timeStamp.DateTime.ToString("MM/dd hh:mm:ss");
+            });
+
+        public DelegateCommand PrevHistoryCommand =>
+            prevHistoryCommand ??= new DelegateCommand(() =>
+            {
+                var groups = GetDatabaseContext().GetGroups();
+                var current = groups.FirstOrDefault(g => g.Id == currentGroup.Id);
+
+                if (current == null)
+                {
+                    return;
+                }
+
+                var currentIndex = groups.IndexOf(current);
+                currentGroup = groups.ElementAtOrDefault(currentIndex - 1) ?? currentGroup;
+                UpdateTimeStamps();
+            });
+
+        public DelegateCommand NextHistoryCommand =>
+            nextHistoryCommand ??= new DelegateCommand(() =>
+            {
+                var groups = GetDatabaseContext().GetGroups();
+                var current = groups.FirstOrDefault(g => g.Id == currentGroup.Id);
+
+                if (current == null)
+                {
+                    return;
+                }
+
+                var currentIndex = groups.IndexOf(current);
+                currentGroup = groups.ElementAtOrDefault(currentIndex + 1) ?? currentGroup;
+                UpdateTimeStamps();
             });
 
         private void UpdateTimeStamps()
