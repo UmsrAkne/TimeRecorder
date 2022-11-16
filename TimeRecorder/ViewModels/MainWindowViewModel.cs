@@ -11,6 +11,7 @@ namespace TimeRecorder.ViewModels
     public class MainWindowViewModel : BindableBase
     {
         private readonly TimeStampGroup currentGroup;
+        private readonly TimeStampGroup latestGroup;
         private string title = "Prism Application";
         private List<TimeStamp> timeStamps;
 
@@ -21,6 +22,7 @@ namespace TimeRecorder.ViewModels
         public MainWindowViewModel()
         {
             currentGroup = GetDatabaseContext().GetLatestGroup();
+            latestGroup = GetDatabaseContext().GetLatestGroup();
             UpdateTimeStamps();
         }
 
@@ -41,13 +43,14 @@ namespace TimeRecorder.ViewModels
         public DelegateCommand<string> AddTimeStampCommand =>
             addTimeStampCommand ??= new DelegateCommand<string>(comment =>
             {
+                var context = GetDatabaseContext();
                 var timeStamp = new TimeStamp()
                 {
                     Comment = comment,
-                    GroupId = currentGroup.Id,
+                    GroupId = latestGroup.Id,
                 };
 
-                GetDatabaseContext().Add(timeStamp);
+                context.Add(timeStamp);
                 UpdateTimeStamps();
                 Title = timeStamp.DateTime.ToString("MM/dd hh:mm:ss");
             });

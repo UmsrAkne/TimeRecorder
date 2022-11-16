@@ -41,6 +41,10 @@
             <i:InvokeCommandAction Command="{Binding AddTimeStampCommand}" CommandParameter="Deactivated" />
         </i:EventTrigger>
 
+        <i:EventTrigger EventName="Closed">
+            <i:InvokeCommandAction Command="{Binding AddTimeStampCommand}" CommandParameter="アプリ終了" />
+        </i:EventTrigger>
+
     </i:Interaction.Triggers>
 
 

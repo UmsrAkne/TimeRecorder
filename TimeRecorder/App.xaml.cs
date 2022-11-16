@@ -42,14 +42,6 @@ namespace TimeRecorder
             context.Add(timeStamp);
         }
 
-        protected override void OnExit(ExitEventArgs e)
-        {
-            var timeStamp = new TimeStamp() { Comment = "アプリ終了", GroupId = currentGroupId };
-            DatabaseContext.Add(timeStamp);
-
-            base.OnExit(e);
-        }
-
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
 
