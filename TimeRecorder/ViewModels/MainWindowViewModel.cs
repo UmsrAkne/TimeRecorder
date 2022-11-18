@@ -18,6 +18,7 @@ namespace TimeRecorder.ViewModels
         private DelegateCommand<string> addTimeStampCommand;
         private DelegateCommand prevHistoryCommand;
         private DelegateCommand nextHistoryCommand;
+        private DelegateCommand latestHistoryCommand;
 
         private bool showActiveEventTimeStamp = true;
 
@@ -88,6 +89,13 @@ namespace TimeRecorder.ViewModels
 
                 var currentIndex = groups.IndexOf(current);
                 currentGroup = groups.ElementAtOrDefault(currentIndex + 1) ?? currentGroup;
+                UpdateTimeStamps();
+            });
+
+        public DelegateCommand LatestHistoryCommand =>
+            latestHistoryCommand ??= new DelegateCommand(() =>
+            {
+                currentGroup = LatestGroup;
                 UpdateTimeStamps();
             });
 

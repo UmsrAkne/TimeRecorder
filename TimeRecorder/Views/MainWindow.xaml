@@ -129,6 +129,12 @@
                 Command="{Binding NextHistoryCommand}"
                 Content="next" />
 
+            <Button
+                Width="40"
+                Margin="5,0"
+                Command="{Binding LatestHistoryCommand}"
+                Content="latest" />
+
         </StackPanel>
 
     </Grid>
