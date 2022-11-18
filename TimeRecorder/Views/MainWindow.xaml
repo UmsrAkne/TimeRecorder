@@ -107,7 +107,7 @@
             VerticalAlignment="Center"
             Orientation="Horizontal">
 
-            <CheckBox IsChecked="{Binding ShowActiveEventTimeStamp}" />
+            <CheckBox Margin="2,3" IsChecked="{Binding ShowActiveEventTimeStamp}" />
             <TextBlock Margin="5,0" Text="Activate を表示" />
         </StackPanel>
 
