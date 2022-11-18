@@ -10,7 +10,6 @@ namespace TimeRecorder.ViewModels
     // ReSharper disable once ClassNeverInstantiated.Global
     public class MainWindowViewModel : BindableBase
     {
-        private readonly TimeStampGroup latestGroup;
         private TimeStampGroup currentGroup;
 
         private string title = "Prism Application";
@@ -25,13 +24,15 @@ namespace TimeRecorder.ViewModels
         public MainWindowViewModel()
         {
             currentGroup = GetDatabaseContext().GetLatestGroup();
-            latestGroup = GetDatabaseContext().GetLatestGroup();
+            LatestGroup = GetDatabaseContext().GetLatestGroup();
             UpdateTimeStamps();
         }
 
         public string Title { get => title; private set => SetProperty(ref title, value); }
 
         public List<TimeStamp> TimeStamps { get => timeStamps; private set => SetProperty(ref timeStamps, value); }
+
+        public TimeStampGroup LatestGroup { get; private set; }
 
         public bool ShowActiveEventTimeStamp
         {
@@ -50,7 +51,7 @@ namespace TimeRecorder.ViewModels
                 var timeStamp = new TimeStamp()
                 {
                     Comment = comment,
-                    GroupId = latestGroup.Id,
+                    GroupId = LatestGroup.Id,
                 };
 
                 context.Add(timeStamp);

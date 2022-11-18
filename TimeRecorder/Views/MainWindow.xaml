@@ -64,6 +64,16 @@
             </Style>
         </Grid.Resources>
 
+        <DockPanel Grid.Row="0" Margin="3,2">
+            <TextBlock Text="Latest Id = " />
+            <TextBlock Text="{Binding LatestGroup.Id}" />
+
+            <Border Margin="8,0" />
+
+            <TextBlock Text="DateTime = " />
+            <TextBlock Text="{Binding LatestGroup.DateTime, Converter={StaticResource DateTimeConverter}}" />
+        </DockPanel>
+
         <ListView
             Grid.Row="1"
             Background="{StaticResource BackgroundBrush}"
