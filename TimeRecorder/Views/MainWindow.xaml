@@ -117,23 +117,18 @@
             HorizontalAlignment="Right"
             Orientation="Horizontal">
 
-            <Button
-                Width="40"
-                Margin="5,0"
-                Command="{Binding PrevHistoryCommand}"
-                Content="prev" />
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Width" Value="45" />
+                    <Setter Property="Margin" Value="5,0" />
+                </Style>
+            </StackPanel.Resources>
 
-            <Button
-                Width="40"
-                Margin="5,0"
-                Command="{Binding NextHistoryCommand}"
-                Content="next" />
+            <Button Command="{Binding PrevHistoryCommand}" Content="Prev" />
 
-            <Button
-                Width="40"
-                Margin="5,0"
-                Command="{Binding LatestHistoryCommand}"
-                Content="latest" />
+            <Button Command="{Binding NextHistoryCommand}" Content="Next" />
+
+            <Button Command="{Binding LatestHistoryCommand}" Content="Latest" />
 
         </StackPanel>
 
