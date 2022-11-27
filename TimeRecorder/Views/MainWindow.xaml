@@ -76,13 +76,20 @@
                 </MenuItem>
             </Menu>
 
-            <TextBlock Text="Latest Id = " />
-            <TextBlock Text="{Binding LatestGroup.Id}" />
+            <StackPanel
+                Margin="4,2"
+                DockPanel.Dock="Bottom"
+                Orientation="Horizontal">
 
-            <Border Margin="8,0" />
+                <TextBlock Text="Latest Id = " />
+                <TextBlock Text="{Binding LatestGroup.Id}" />
 
-            <TextBlock Text="DateTime = " />
-            <TextBlock Text="{Binding LatestGroup.DateTime, Converter={StaticResource DateTimeConverter}}" />
+                <Border Margin="8,0" />
+
+                <TextBlock Text="DateTime = " />
+                <TextBlock Text="{Binding LatestGroup.DateTime, Converter={StaticResource DateTimeConverter}}" />
+
+            </StackPanel>
         </DockPanel>
 
         <ListView
