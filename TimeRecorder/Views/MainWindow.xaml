@@ -66,6 +66,12 @@
 
         <DockPanel Grid.Row="0">
             <Menu DockPanel.Dock="Top">
+                <Menu.Resources>
+                    <Style TargetType="MenuItem">
+                        <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+                    </Style>
+                </Menu.Resources>
+
                 <MenuItem Header="表示">
                     <MenuItem
                         Header="Activate を表示"
