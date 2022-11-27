@@ -67,6 +67,11 @@
         <DockPanel Grid.Row="0">
             <Menu DockPanel.Dock="Top">
                 <MenuItem Header="表示">
+                    <MenuItem
+                        Header="Activate を表示"
+                        IsCheckable="True"
+                        IsChecked="{Binding ShowActiveEventTimeStamp}" />
+
                     <MenuItem Command="{Binding ReversOrderCommand}" Header="降順/昇順を切り替える" />
                 </MenuItem>
             </Menu>
@@ -111,11 +116,7 @@
             Grid.Row="2"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
-            Orientation="Horizontal">
-
-            <CheckBox Margin="2,3" IsChecked="{Binding ShowActiveEventTimeStamp}" />
-            <TextBlock Margin="5,0" Text="Activate を表示" />
-        </StackPanel>
+            Orientation="Horizontal" />
 
         <StackPanel
             Grid.Row="2"
