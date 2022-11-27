@@ -44,7 +44,6 @@ namespace TimeRecorder
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
         }
     }
 }
