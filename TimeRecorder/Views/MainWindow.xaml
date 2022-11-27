@@ -64,7 +64,13 @@
             </Style>
         </Grid.Resources>
 
-        <DockPanel Grid.Row="0" Margin="3,2">
+        <DockPanel Grid.Row="0">
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="表示">
+                    <MenuItem Command="{Binding ReversOrderCommand}" Header="降順/昇順を切り替える" />
+                </MenuItem>
+            </Menu>
+
             <TextBlock Text="Latest Id = " />
             <TextBlock Text="{Binding LatestGroup.Id}" />
 

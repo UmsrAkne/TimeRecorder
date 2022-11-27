@@ -14,7 +14,9 @@ namespace TimeRecorder.ViewModels
 
         private string title = "Prism Application";
         private List<TimeStamp> timeStamps;
+        private bool reversOrder = false;
 
+        private DelegateCommand reversOrderCommand;
         private DelegateCommand<string> addTimeStampCommand;
         private DelegateCommand prevHistoryCommand;
         private DelegateCommand nextHistoryCommand;
@@ -99,19 +101,34 @@ namespace TimeRecorder.ViewModels
                 UpdateTimeStamps();
             });
 
+        public DelegateCommand ReversOrderCommand =>
+            reversOrderCommand ??= new DelegateCommand(() =>
+            {
+                reversOrder = !reversOrder;
+                UpdateTimeStamps();
+            });
+
         private void UpdateTimeStamps()
         {
+            List<TimeStamp> timeStampList;
             if (!ShowActiveEventTimeStamp)
             {
                 // 大文字小文字関係なく、 activated がコメントに含まれるタイムスタンプをリストから除く
-                TimeStamps = GetDatabaseContext().GetTimeStamps(currentGroup)
+                timeStampList = GetDatabaseContext().GetTimeStamps(currentGroup)
                     .Where(t => !t.Comment.Contains("activated", StringComparison.OrdinalIgnoreCase))
                     .ToList();
             }
             else
             {
-                TimeStamps = GetDatabaseContext().GetTimeStamps(currentGroup);
+                timeStampList = GetDatabaseContext().GetTimeStamps(currentGroup);
             }
+
+            if (reversOrder)
+            {
+                timeStampList.Reverse();
+            }
+
+            TimeStamps = timeStampList;
         }
 
         private DatabaseContext GetDatabaseContext()
