@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
 using Prism.Commands;
 using Prism.Mvvm;
 using TimeRecorder.Models;
@@ -21,6 +23,7 @@ namespace TimeRecorder.ViewModels
         private DelegateCommand prevHistoryCommand;
         private DelegateCommand nextHistoryCommand;
         private DelegateCommand latestHistoryCommand;
+        private DelegateCommand<IEnumerable> copyTimeStampsCommand;
 
         private bool showActiveEventTimeStamp = true;
 
@@ -99,6 +102,14 @@ namespace TimeRecorder.ViewModels
             {
                 currentGroup = LatestGroup;
                 UpdateTimeStamps();
+            });
+
+        public DelegateCommand<IEnumerable> CopyTimeStampsCommand =>
+            copyTimeStampsCommand ??= new DelegateCommand<IEnumerable>(selectedItemCollection =>
+            {
+                var writer = new TimeStampWriter();
+                var tss = selectedItemCollection.Cast<TimeStamp>().ToList();
+                Clipboard.SetDataObject(writer.GetTimeStampString(tss));
             });
 
         public DelegateCommand ReversOrderCommand =>

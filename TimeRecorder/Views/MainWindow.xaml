@@ -32,6 +32,12 @@
             CommandParameter="User TimeStamp"
             Modifiers="Control" />
 
+        <KeyBinding
+            Key="C"
+            Command="{Binding CopyTimeStampsCommand}"
+            CommandParameter="{Binding SelectedItems, ElementName=ListView}"
+            Modifiers="Control" />
+
     </Window.InputBindings>
 
     <i:Interaction.Triggers>
@@ -99,6 +105,7 @@
         </DockPanel>
 
         <ListView
+            Name="ListView"
             Grid.Row="1"
             Background="{StaticResource BackgroundBrush}"
             ItemsSource="{Binding TimeStamps}">
