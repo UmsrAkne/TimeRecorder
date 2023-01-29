@@ -14,9 +14,9 @@ namespace TimeRecorder.ViewModels
     {
         private TimeStampGroup currentGroup;
 
-        private string title = "Prism Application";
+        private string title = "Time Recorder";
         private List<TimeStamp> timeStamps;
-        private bool reversOrder = false;
+        private bool reversOrder;
 
         private DelegateCommand reversOrderCommand;
         private DelegateCommand<string> addTimeStampCommand;
