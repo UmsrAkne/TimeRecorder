@@ -20,6 +20,7 @@ namespace TimeRecorder.ViewModels
 
         private DelegateCommand reversOrderCommand;
         private DelegateCommand<string> addTimeStampCommand;
+        private DelegateCommand addCommentTimeStampCommand;
         private DelegateCommand prevHistoryCommand;
         private DelegateCommand nextHistoryCommand;
         private DelegateCommand latestHistoryCommand;
@@ -66,6 +67,19 @@ namespace TimeRecorder.ViewModels
                 context.Add(timeStamp);
                 UpdateTimeStamps();
                 Title = timeStamp.DateTime.ToString("MM/dd hh:mm:ss");
+            });
+
+        public DelegateCommand AddCommentTimeStampCommand =>
+            addCommentTimeStampCommand ??= new DelegateCommand(() =>
+            {
+                var comment = InputText;
+                if (string.IsNullOrWhiteSpace(comment))
+                {
+                    comment = "User TimeStamp (no comment)";
+                }
+
+                AddTimeStampCommand.Execute(comment);
+                InputText = string.Empty;
             });
 
         public DelegateCommand PrevHistoryCommand =>

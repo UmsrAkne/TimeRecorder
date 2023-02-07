@@ -38,6 +38,11 @@
             CommandParameter="{Binding SelectedItems, ElementName=ListView}"
             Modifiers="Control" />
 
+        <KeyBinding
+            Key="Enter"
+            Command="{Binding AddCommentTimeStampCommand}"
+            Modifiers="Control" />
+
     </Window.InputBindings>
 
     <i:Interaction.Triggers>
