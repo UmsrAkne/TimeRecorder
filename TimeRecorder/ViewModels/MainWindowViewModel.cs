@@ -20,12 +20,14 @@ namespace TimeRecorder.ViewModels
 
         private DelegateCommand reversOrderCommand;
         private DelegateCommand<string> addTimeStampCommand;
+        private DelegateCommand addCommentTimeStampCommand;
         private DelegateCommand prevHistoryCommand;
         private DelegateCommand nextHistoryCommand;
         private DelegateCommand latestHistoryCommand;
         private DelegateCommand<IEnumerable> copyTimeStampsCommand;
 
         private bool showActiveEventTimeStamp = true;
+        private string inputText;
 
         public MainWindowViewModel()
         {
@@ -39,6 +41,8 @@ namespace TimeRecorder.ViewModels
         public List<TimeStamp> TimeStamps { get => timeStamps; private set => SetProperty(ref timeStamps, value); }
 
         public TimeStampGroup LatestGroup { get; private set; }
+
+        public string InputText { get => inputText; set => SetProperty(ref inputText, value); }
 
         public bool ShowActiveEventTimeStamp
         {
@@ -63,6 +67,19 @@ namespace TimeRecorder.ViewModels
                 context.Add(timeStamp);
                 UpdateTimeStamps();
                 Title = timeStamp.DateTime.ToString("MM/dd hh:mm:ss");
+            });
+
+        public DelegateCommand AddCommentTimeStampCommand =>
+            addCommentTimeStampCommand ??= new DelegateCommand(() =>
+            {
+                var comment = InputText;
+                if (string.IsNullOrWhiteSpace(comment))
+                {
+                    comment = "User TimeStamp (no comment)";
+                }
+
+                AddTimeStampCommand.Execute(comment);
+                InputText = string.Empty;
             });
 
         public DelegateCommand PrevHistoryCommand =>
@@ -132,6 +149,17 @@ namespace TimeRecorder.ViewModels
             else
             {
                 timeStampList = GetDatabaseContext().GetTimeStamps(currentGroup);
+            }
+
+            // 直前の要素からの経過時間を入力する。
+            // [0] に関しては直前の要素は無いため、[1] 始まりで処理する。
+            for (var i = 1; i < timeStampList.Count; i++)
+            {
+                var current = timeStampList[i];
+                var beforeTs = timeStampList[i - 1];
+
+                current.ElapsedTime = current.DateTime - beforeTs.DateTime;
+                current.ElapsedTime = TimeSpan.FromSeconds(Math.Floor(current.ElapsedTime.TotalSeconds));
             }
 
             if (reversOrder)

@@ -11,7 +11,7 @@
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
     xmlns:viewModels="clr-namespace:TimeRecorder.ViewModels"
     Title="{Binding Title}"
-    Width="525"
+    Width="700"
     Height="350"
     d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
     prism:ViewModelLocator.AutoWireViewModel="True"
@@ -38,6 +38,11 @@
             CommandParameter="{Binding SelectedItems, ElementName=ListView}"
             Modifiers="Control" />
 
+        <KeyBinding
+            Key="Enter"
+            Command="{Binding AddCommentTimeStampCommand}"
+            Modifiers="Control" />
+
     </Window.InputBindings>
 
     <i:Interaction.Triggers>
@@ -56,7 +61,7 @@
     </i:Interaction.Triggers>
 
 
-    <Grid Background="{StaticResource BackgroundBrush}">
+    <Grid Background="{StaticResource BackgroundBrush}" FocusManager.FocusedElement="{Binding ElementName=TextBox}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition />
@@ -107,14 +112,16 @@
         <ListView
             Name="ListView"
             Grid.Row="1"
+            HorizontalContentAlignment="Stretch"
             Background="{StaticResource BackgroundBrush}"
             ItemsSource="{Binding TimeStamps}">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:TimeStamp}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="110" />
                             <ColumnDefinition />
+                            <ColumnDefinition Width="60" />
                         </Grid.ColumnDefinitions>
 
                         <Grid.Resources>
@@ -126,38 +133,54 @@
 
                         <TextBlock Grid.Column="0" Text="{Binding DateTime, Converter={StaticResource DateTimeConverter}}" />
                         <TextBlock Grid.Column="1" Text="{Binding Comment}" />
+                        <TextBlock Grid.Column="2" Text="{Binding ElapsedTime}" />
 
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
 
-        <StackPanel
-            Grid.Row="2"
-            HorizontalAlignment="Left"
-            VerticalAlignment="Center"
-            Orientation="Horizontal" />
+        <StackPanel Grid.Row="2" VerticalAlignment="Center">
 
-        <StackPanel
-            Grid.Row="2"
-            Margin="0,3"
-            HorizontalAlignment="Right"
-            Orientation="Horizontal">
+            <TextBox Name="TextBox" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" />
 
-            <StackPanel.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="Width" Value="45" />
-                    <Setter Property="Margin" Value="5,0" />
-                </Style>
-            </StackPanel.Resources>
+            <StackPanel Margin="5" Orientation="Horizontal">
 
-            <Button Command="{Binding PrevHistoryCommand}" Content="Prev" />
+                <Button
+                    Padding="5,2"
+                    Command="{Binding AddCommentTimeStampCommand}"
+                    Content="Comment TS (Ctrl + Enter)" />
 
-            <Button Command="{Binding NextHistoryCommand}" Content="Next" />
+                <Border Margin="5,0" />
 
-            <Button Command="{Binding LatestHistoryCommand}" Content="Latest" />
+                <Button
+                    Padding="5,2"
+                    Command="{Binding AddTimeStampCommand}"
+                    CommandParameter="User TimeStamp"
+                    Content="Auto TS (Ctrl + S)" />
+
+            </StackPanel>
+
+            <StackPanel
+                Margin="0,8"
+                HorizontalAlignment="Right"
+                Orientation="Horizontal">
+
+                <StackPanel.Resources>
+                    <Style TargetType="Button">
+                        <Setter Property="Width" Value="45" />
+                        <Setter Property="Margin" Value="5,0" />
+                    </Style>
+                </StackPanel.Resources>
+
+                <Button Command="{Binding PrevHistoryCommand}" Content="Prev" />
+
+                <Button Command="{Binding NextHistoryCommand}" Content="Next" />
+
+                <Button Command="{Binding LatestHistoryCommand}" Content="Latest" />
+
+            </StackPanel>
 
         </StackPanel>
-
     </Grid>
 </Window>
