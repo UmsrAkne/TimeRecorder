@@ -141,6 +141,23 @@
 
             <TextBox Name="TextBox" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" />
 
+            <StackPanel Margin="5" Orientation="Horizontal">
+
+                <Button
+                    Padding="5,2"
+                    Command="{Binding AddCommentTimeStampCommand}"
+                    Content="Comment TS (Ctrl + Enter)" />
+
+                <Border Margin="5,0" />
+
+                <Button
+                    Padding="5,2"
+                    Command="{Binding AddTimeStampCommand}"
+                    CommandParameter="User TimeStamp"
+                    Content="Auto TS (Ctrl + S)" />
+
+            </StackPanel>
+
             <StackPanel
                 Margin="0,8"
                 HorizontalAlignment="Right"
