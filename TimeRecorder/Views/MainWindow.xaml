@@ -119,6 +119,7 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="120" />
+                            <ColumnDefinition Width="250" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
 
@@ -131,6 +132,7 @@
 
                         <TextBlock Grid.Column="0" Text="{Binding DateTime, Converter={StaticResource DateTimeConverter}}" />
                         <TextBlock Grid.Column="1" Text="{Binding Comment}" />
+                        <TextBlock Grid.Column="2" Text="{Binding ElapsedTime}" />
 
                     </Grid>
                 </DataTemplate>
