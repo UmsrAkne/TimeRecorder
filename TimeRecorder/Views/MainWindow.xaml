@@ -61,7 +61,7 @@
     </i:Interaction.Triggers>
 
 
-    <Grid Background="{StaticResource BackgroundBrush}">
+    <Grid Background="{StaticResource BackgroundBrush}" FocusManager.FocusedElement="{Binding ElementName=TextBox}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition />
@@ -139,7 +139,7 @@
 
         <StackPanel Grid.Row="2" VerticalAlignment="Center">
 
-            <TextBox Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Name="TextBox" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" />
 
             <StackPanel
                 Margin="0,8"
