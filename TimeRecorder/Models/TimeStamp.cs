@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TimeRecorder.Models
 {
@@ -17,5 +18,8 @@ namespace TimeRecorder.Models
 
         [Required]
         public string Comment { get; set; } = string.Empty;
+
+        [NotMapped]
+        public TimeSpan ElapsedTime { get; set; }
     }
 }

@@ -151,6 +151,17 @@ namespace TimeRecorder.ViewModels
                 timeStampList = GetDatabaseContext().GetTimeStamps(currentGroup);
             }
 
+            // 直前の要素からの経過時間を入力する。
+            // [0] に関しては直前の要素は無いため、[1] 始まりで処理する。
+            for (var i = 1; i < timeStampList.Count; i++)
+            {
+                var current = timeStampList[i];
+                var beforeTs = timeStampList[i - 1];
+
+                current.ElapsedTime = current.DateTime - beforeTs.DateTime;
+                current.ElapsedTime = TimeSpan.FromSeconds(Math.Floor(current.ElapsedTime.TotalSeconds));
+            }
+
             if (reversOrder)
             {
                 timeStampList.Reverse();
