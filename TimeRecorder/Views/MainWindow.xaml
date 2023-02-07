@@ -11,7 +11,7 @@
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
     xmlns:viewModels="clr-namespace:TimeRecorder.ViewModels"
     Title="{Binding Title}"
-    Width="525"
+    Width="700"
     Height="350"
     d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
     prism:ViewModelLocator.AutoWireViewModel="True"
@@ -112,15 +112,16 @@
         <ListView
             Name="ListView"
             Grid.Row="1"
+            HorizontalContentAlignment="Stretch"
             Background="{StaticResource BackgroundBrush}"
             ItemsSource="{Binding TimeStamps}">
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:TimeStamp}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="120" />
-                            <ColumnDefinition Width="250" />
+                            <ColumnDefinition Width="110" />
                             <ColumnDefinition />
+                            <ColumnDefinition Width="60" />
                         </Grid.ColumnDefinitions>
 
                         <Grid.Resources>
