@@ -26,6 +26,7 @@ namespace TimeRecorder.ViewModels
         private DelegateCommand<IEnumerable> copyTimeStampsCommand;
 
         private bool showActiveEventTimeStamp = true;
+        private string inputText;
 
         public MainWindowViewModel()
         {
@@ -39,6 +40,8 @@ namespace TimeRecorder.ViewModels
         public List<TimeStamp> TimeStamps { get => timeStamps; private set => SetProperty(ref timeStamps, value); }
 
         public TimeStampGroup LatestGroup { get; private set; }
+
+        public string InputText { get => inputText; set => SetProperty(ref inputText, value); }
 
         public bool ShowActiveEventTimeStamp
         {
