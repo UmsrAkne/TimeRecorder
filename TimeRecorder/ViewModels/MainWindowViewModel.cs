@@ -66,7 +66,7 @@ namespace TimeRecorder.ViewModels
 
                 context.Add(timeStamp);
                 UpdateTimeStamps();
-                Title = timeStamp.DateTime.ToString("MM/dd hh:mm:ss");
+                Title = timeStamp.DateTime.ToString("MM/dd HH:mm:ss");
             });
 
         public DelegateCommand AddCommentTimeStampCommand =>
