@@ -97,7 +97,7 @@
 
             <StackPanel
                 Margin="4,2"
-                DockPanel.Dock="Bottom"
+                DockPanel.Dock="Top"
                 Orientation="Horizontal">
 
                 <TextBlock Text="Latest Id = " />
@@ -109,6 +109,19 @@
                 <TextBlock Text="{Binding LatestGroup.DateTime, Converter={StaticResource DateTimeConverter}}" />
 
             </StackPanel>
+
+            <Grid Margin="7,0" DockPanel.Dock="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{Binding Source={StaticResource DateTimeColumnWidth}}" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="{Binding Source={StaticResource ElapsedTimeColumnWidth}}" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="DateTime" />
+                <TextBlock Grid.Column="1" Text="Comment" />
+                <TextBlock Grid.Column="2" Text="Elapsed" />
+
+            </Grid>
         </DockPanel>
 
         <ListView
