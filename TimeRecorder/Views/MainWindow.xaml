@@ -12,7 +12,7 @@
     xmlns:viewModels="clr-namespace:TimeRecorder.ViewModels"
     Title="{Binding Title}"
     Width="700"
-    Height="350"
+    Height="450"
     d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel}"
     prism:ViewModelLocator.AutoWireViewModel="True"
     mc:Ignorable="d">
