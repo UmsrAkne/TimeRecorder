@@ -22,6 +22,8 @@
         <SolidColorBrush x:Key="BackgroundBrush" Color="#222222" />
         <system:Double x:Key="FontSize">14</system:Double>
         <converters:DateTimeConverter x:Key="DateTimeConverter" />
+        <system:Double x:Key="DateTimeColumnWidth">110</system:Double>
+        <system:Double x:Key="ElapsedTimeColumnWidth">60</system:Double>
 
     </Window.Resources>
 
@@ -95,7 +97,7 @@
 
             <StackPanel
                 Margin="4,2"
-                DockPanel.Dock="Bottom"
+                DockPanel.Dock="Top"
                 Orientation="Horizontal">
 
                 <TextBlock Text="Latest Id = " />
@@ -107,6 +109,19 @@
                 <TextBlock Text="{Binding LatestGroup.DateTime, Converter={StaticResource DateTimeConverter}}" />
 
             </StackPanel>
+
+            <Grid Margin="7,0" DockPanel.Dock="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{Binding Source={StaticResource DateTimeColumnWidth}}" />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="{Binding Source={StaticResource ElapsedTimeColumnWidth}}" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="DateTime" />
+                <TextBlock Grid.Column="1" Text="Comment" />
+                <TextBlock Grid.Column="2" Text="Elapsed" />
+
+            </Grid>
         </DockPanel>
 
         <ListView
@@ -119,9 +134,9 @@
                 <DataTemplate DataType="{x:Type models:TimeStamp}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="{Binding Source={StaticResource DateTimeColumnWidth}}" />
                             <ColumnDefinition />
-                            <ColumnDefinition Width="60" />
+                            <ColumnDefinition Width="{Binding Source={StaticResource ElapsedTimeColumnWidth}}" />
                         </Grid.ColumnDefinitions>
 
                         <Grid.Resources>
