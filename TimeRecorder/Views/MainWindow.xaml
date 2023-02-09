@@ -107,6 +107,13 @@
 
             </StackPanel>
 
+            <!--  区切り線  -->
+            <Border
+                Height="1"
+                Margin="0,3"
+                HorizontalAlignment="Stretch"
+                Background="WhiteSmoke" />
+
             <Grid Margin="7,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="{Binding Source={StaticResource DateTimeColumnWidth}}" />
