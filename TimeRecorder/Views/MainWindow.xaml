@@ -22,6 +22,8 @@
         <SolidColorBrush x:Key="BackgroundBrush" Color="#222222" />
         <system:Double x:Key="FontSize">14</system:Double>
         <converters:DateTimeConverter x:Key="DateTimeConverter" />
+        <system:Double x:Key="DateTimeColumnWidth">110</system:Double>
+        <system:Double x:Key="ElapsedTimeColumnWidth">60</system:Double>
 
     </Window.Resources>
 
@@ -119,9 +121,9 @@
                 <DataTemplate DataType="{x:Type models:TimeStamp}">
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="110" />
+                            <ColumnDefinition Width="{Binding Source={StaticResource DateTimeColumnWidth}}" />
                             <ColumnDefinition />
-                            <ColumnDefinition Width="60" />
+                            <ColumnDefinition Width="{Binding Source={StaticResource ElapsedTimeColumnWidth}}" />
                         </Grid.ColumnDefinitions>
 
                         <Grid.Resources>
