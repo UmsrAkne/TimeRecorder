@@ -6,16 +6,17 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:TimeRecorder.ViewModels"
     Title="EditPage"
-    Width="600"
+    Width="650"
     d:DataContext="{d:DesignInstance viewModels:EditPageViewModel}"
     Background="{StaticResource BackgroundBrush}"
     mc:Ignorable="d">
 
-    <Grid>
+    <Grid FocusManager.FocusedElement="{Binding ElementName=TextBox}">
         <Grid.Resources>
             <Style TargetType="TextBlock">
                 <Setter Property="Background" Value="DarkGray" />
                 <Setter Property="Foreground" Value="Black" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize}" />
             </Style>
         </Grid.Resources>
 
@@ -26,17 +27,26 @@
 
         <StackPanel Grid.Row="0" Margin="5">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Width="100" />
+                <TextBlock Width="140" Text="{Binding OldTimeStamp.DateTime}" />
                 <Border Margin="4" />
-                <TextBlock Width="450" />
+                <TextBlock Width="450" Text="{Binding OldTimeStamp.Comment}" />
             </StackPanel>
 
             <Border Margin="4" />
 
             <StackPanel Orientation="Horizontal">
-                <TextBox Width="100" />
+                <TextBox
+                    Name="TextBox"
+                    Width="140"
+                    FontSize="{StaticResource FontSize}"
+                    Text="{Binding CurrentTimeStamp.DateTime}" />
+
                 <Border Margin="4" />
-                <TextBox Width="450" />
+
+                <TextBox
+                    Width="450"
+                    FontSize="{StaticResource FontSize}"
+                    Text="{Binding CurrentTimeStamp.Comment}" />
             </StackPanel>
 
         </StackPanel>
@@ -47,12 +57,22 @@
             Orientation="Horizontal">
 
             <Button
+                Width="100"
+                Height="25"
+                Margin="10"
+                Padding="5,0"
+                Background="LightBlue"
+                Command="{Binding ConfirmCommand}"
+                Content="Confirm" />
+
+            <Button
                 Width="80"
                 Height="25"
                 Margin="10"
                 Padding="5,0"
                 Command="{Binding CloseCommand}"
-                Content="Close" />
+                Content="Cancel" />
+
         </StackPanel>
     </Grid>
 </Page>
