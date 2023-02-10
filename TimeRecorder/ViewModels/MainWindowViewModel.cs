@@ -144,7 +144,14 @@ namespace TimeRecorder.ViewModels
         {
             // ReSharper disable once UnusedParameter.Local
             var param = new DialogParameters { { nameof(TimeStamp), ts } };
-            dialogService.ShowDialog(nameof(EditPage), param, result => { });
+            dialogService.ShowDialog(nameof(EditPage), param, result =>
+            {
+                if (result.Result == ButtonResult.Yes)
+                {
+                    GetDatabaseContext().Add(result.Parameters.GetValue<TimeStamp>(nameof(TimeStamp)));
+                    UpdateTimeStamps();
+                }
+            });
         });
 
         private void UpdateTimeStamps()
