@@ -1,4 +1,6 @@
 using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
@@ -9,6 +11,8 @@ namespace TimeRecorder.ViewModels
     // ReSharper disable once ClassNeverInstantiated.Global
     public class EditPageViewModel : BindableBase, IDialogAware
     {
+        private string dateTimeText;
+
         public event Action<IDialogResult> RequestClose;
 
         public string Title => string.Empty;
@@ -16,6 +20,27 @@ namespace TimeRecorder.ViewModels
         public TimeStamp OldTimeStamp { get; set; }
 
         public TimeStamp CurrentTimeStamp { get; set; }
+
+        public string DateTimeText
+        {
+            get => dateTimeText;
+            set
+            {
+                var str = Regex.Replace(value, "[ /:_-]", string.Empty);
+                var culture = CultureInfo.CurrentCulture;
+                const DateTimeStyles styles = DateTimeStyles.None;
+
+                if (DateTime.TryParseExact(str, "yyMMddHHmm", culture, styles, out var result))
+                {
+                    CurrentTimeStamp.DateTime = result;
+                    SetProperty(ref dateTimeText, value);
+                }
+                else
+                {
+                    SetProperty(ref dateTimeText, dateTimeText);
+                }
+            }
+        }
 
         public DelegateCommand CloseCommand => new DelegateCommand(() =>
         {
@@ -47,6 +72,8 @@ namespace TimeRecorder.ViewModels
                 GroupId = OldTimeStamp.GroupId,
                 DateTime = OldTimeStamp.DateTime,
             };
+
+            DateTimeText = CurrentTimeStamp.DateTime.ToString("yy/MM/dd HH:mm");
         }
     }
 }

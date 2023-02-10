@@ -39,7 +39,7 @@
                     Name="TextBox"
                     Width="140"
                     FontSize="{StaticResource FontSize}"
-                    Text="{Binding CurrentTimeStamp.DateTime}" />
+                    Text="{Binding DateTimeText}" />
 
                 <Border Margin="4" />
 
