@@ -7,6 +7,7 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
 using TimeRecorder.Models;
+using TimeRecorder.Views;
 
 namespace TimeRecorder.ViewModels
 {
@@ -138,6 +139,13 @@ namespace TimeRecorder.ViewModels
                 reversOrder = !reversOrder;
                 UpdateTimeStamps();
             });
+
+        public DelegateCommand<TimeStamp> ShowEditPageCommand => new DelegateCommand<TimeStamp>((ts) =>
+        {
+            // ReSharper disable once UnusedParameter.Local
+            var param = new DialogParameters { { nameof(TimeStamp), ts } };
+            dialogService.ShowDialog(nameof(EditPage), param, result => { });
+        });
 
         private void UpdateTimeStamps()
         {

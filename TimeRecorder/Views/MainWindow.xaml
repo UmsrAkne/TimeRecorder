@@ -134,27 +134,36 @@
             HorizontalContentAlignment="Stretch"
             Background="{StaticResource BackgroundBrush}"
             ItemsSource="{Binding TimeStamps}">
+
             <ListView.ItemTemplate>
                 <DataTemplate DataType="{x:Type models:TimeStamp}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="{Binding Source={StaticResource DateTimeColumnWidth}}" />
-                            <ColumnDefinition />
-                            <ColumnDefinition Width="{Binding Source={StaticResource ElapsedTimeColumnWidth}}" />
-                        </Grid.ColumnDefinitions>
+                    <ContentControl>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="MouseDoubleClick">
+                                <i:InvokeCommandAction Command="{Binding DataContext.ShowEditPageCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
 
-                        <Grid.Resources>
-                            <Style TargetType="TextBlock">
-                                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
-                                <Setter Property="FontSize" Value="{StaticResource FontSize}" />
-                            </Style>
-                        </Grid.Resources>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="{Binding Source={StaticResource DateTimeColumnWidth}}" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="{Binding Source={StaticResource ElapsedTimeColumnWidth}}" />
+                            </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" Text="{Binding DateTime, Converter={StaticResource DateTimeConverter}}" />
-                        <TextBlock Grid.Column="1" Text="{Binding Comment}" />
-                        <TextBlock Grid.Column="2" Text="{Binding ElapsedTime}" />
+                            <Grid.Resources>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+                                    <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+                                </Style>
+                            </Grid.Resources>
 
-                    </Grid>
+                            <TextBlock Grid.Column="0" Text="{Binding DateTime, Converter={StaticResource DateTimeConverter}}" />
+                            <TextBlock Grid.Column="1" Text="{Binding Comment}" />
+                            <TextBlock Grid.Column="2" Text="{Binding ElapsedTime}" />
+
+                        </Grid>
+                    </ContentControl>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

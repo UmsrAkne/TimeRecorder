@@ -2,6 +2,7 @@ using System;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
+using TimeRecorder.Models;
 
 namespace TimeRecorder.ViewModels
 {
@@ -11,6 +12,8 @@ namespace TimeRecorder.ViewModels
         public event Action<IDialogResult> RequestClose;
 
         public string Title => string.Empty;
+
+        public TimeStamp CurrentTimeStamp { get; set; }
 
         public DelegateCommand CloseCommand => new DelegateCommand(() =>
         {
@@ -25,6 +28,7 @@ namespace TimeRecorder.ViewModels
 
         public void OnDialogOpened(IDialogParameters parameters)
         {
+            CurrentTimeStamp = parameters.GetValue<TimeStamp>(nameof(TimeStamp));
         }
     }
 }
