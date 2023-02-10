@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Services.Dialogs;
 using TimeRecorder.Models;
 
 namespace TimeRecorder.ViewModels
@@ -17,6 +18,7 @@ namespace TimeRecorder.ViewModels
         private string title = "Time Recorder";
         private List<TimeStamp> timeStamps;
         private bool reversOrder;
+        private IDialogService dialogService;
 
         private DelegateCommand reversOrderCommand;
         private DelegateCommand<string> addTimeStampCommand;
@@ -29,8 +31,9 @@ namespace TimeRecorder.ViewModels
         private bool showActiveEventTimeStamp = true;
         private string inputText;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IDialogService dialogService)
         {
+            this.dialogService = dialogService;
             currentGroup = GetDatabaseContext().GetLatestGroup();
             LatestGroup = GetDatabaseContext().GetLatestGroup();
             UpdateTimeStamps();
