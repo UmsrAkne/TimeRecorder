@@ -31,6 +31,12 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Margin="5">
+            <TextBlock
+                Margin="0,5"
+                Background="Transparent"
+                Foreground="{StaticResource ForegroundBrush}"
+                Text="オリジナルデータ" />
+
             <StackPanel Orientation="Horizontal">
                 <TextBlock
                     Width="140"
@@ -45,7 +51,13 @@
                     Text="{Binding OldTimeStamp.Comment}" />
             </StackPanel>
 
-            <Border Margin="4" />
+            <Border Margin="8" />
+
+            <TextBlock
+                Margin="0,5"
+                Background="Transparent"
+                Foreground="{StaticResource ForegroundBrush}"
+                Text="データ編集用フォーム" />
 
             <StackPanel Orientation="Horizontal">
                 <TextBox
