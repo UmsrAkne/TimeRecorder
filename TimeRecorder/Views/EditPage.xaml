@@ -32,9 +32,17 @@
 
         <StackPanel Grid.Row="0" Margin="5">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Width="140" Text="{Binding OldTimeStamp.DateTime, Converter={StaticResource DateTimeConverter}}" />
+                <TextBlock
+                    Width="140"
+                    Padding="2,0"
+                    Text="{Binding OldTimeStamp.DateTime, Converter={StaticResource DateTimeConverter}}" />
+
                 <Border Margin="4" />
-                <TextBlock Width="450" Text="{Binding OldTimeStamp.Comment}" />
+
+                <TextBlock
+                    Width="480"
+                    Padding="2,0"
+                    Text="{Binding OldTimeStamp.Comment}" />
             </StackPanel>
 
             <Border Margin="4" />
@@ -49,7 +57,7 @@
                 <Border Margin="4" />
 
                 <TextBox
-                    Width="450"
+                    Width="480"
                     FontSize="{StaticResource FontSize}"
                     Text="{Binding CurrentTimeStamp.Comment}" />
             </StackPanel>
