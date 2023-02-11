@@ -2,6 +2,7 @@
     x:Class="TimeRecorder.Views.EditPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="clr-namespace:TimeRecorder.Models.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:viewModels="clr-namespace:TimeRecorder.ViewModels"
@@ -10,6 +11,10 @@
     d:DataContext="{d:DesignInstance viewModels:EditPageViewModel}"
     Background="{StaticResource BackgroundBrush}"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:DateTimeConverter x:Key="DateTimeConverter" />
+    </Page.Resources>
 
     <Grid FocusManager.FocusedElement="{Binding ElementName=TextBox}">
         <Grid.Resources>
@@ -27,7 +32,7 @@
 
         <StackPanel Grid.Row="0" Margin="5">
             <StackPanel Orientation="Horizontal">
-                <TextBlock Width="140" Text="{Binding OldTimeStamp.DateTime}" />
+                <TextBlock Width="140" Text="{Binding OldTimeStamp.DateTime, Converter={StaticResource DateTimeConverter}}" />
                 <Border Margin="4" />
                 <TextBlock Width="450" Text="{Binding OldTimeStamp.Comment}" />
             </StackPanel>
