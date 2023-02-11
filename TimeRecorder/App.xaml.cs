@@ -2,6 +2,7 @@
 using System.Windows;
 using Prism.Ioc;
 using TimeRecorder.Models;
+using TimeRecorder.ViewModels;
 using TimeRecorder.Views;
 
 namespace TimeRecorder
@@ -44,6 +45,7 @@ namespace TimeRecorder
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterDialog<EditPage, EditPageViewModel>();
         }
     }
 }

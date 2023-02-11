@@ -1,0 +1,78 @@
+<Page
+    x:Class="TimeRecorder.Views.EditPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:TimeRecorder.ViewModels"
+    Title="EditPage"
+    Width="650"
+    d:DataContext="{d:DesignInstance viewModels:EditPageViewModel}"
+    Background="{StaticResource BackgroundBrush}"
+    mc:Ignorable="d">
+
+    <Grid FocusManager.FocusedElement="{Binding ElementName=TextBox}">
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="Background" Value="DarkGray" />
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+            </Style>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition Height="60" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="5">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Width="140" Text="{Binding OldTimeStamp.DateTime}" />
+                <Border Margin="4" />
+                <TextBlock Width="450" Text="{Binding OldTimeStamp.Comment}" />
+            </StackPanel>
+
+            <Border Margin="4" />
+
+            <StackPanel Orientation="Horizontal">
+                <TextBox
+                    Name="TextBox"
+                    Width="140"
+                    FontSize="{StaticResource FontSize}"
+                    Text="{Binding DateTimeText}" />
+
+                <Border Margin="4" />
+
+                <TextBox
+                    Width="450"
+                    FontSize="{StaticResource FontSize}"
+                    Text="{Binding CurrentTimeStamp.Comment}" />
+            </StackPanel>
+
+        </StackPanel>
+
+        <StackPanel
+            Grid.Row="1"
+            HorizontalAlignment="Right"
+            Orientation="Horizontal">
+
+            <Button
+                Width="100"
+                Height="25"
+                Margin="10"
+                Padding="5,0"
+                Background="LightBlue"
+                Command="{Binding ConfirmCommand}"
+                Content="Confirm" />
+
+            <Button
+                Width="80"
+                Height="25"
+                Margin="10"
+                Padding="5,0"
+                Command="{Binding CloseCommand}"
+                Content="Cancel" />
+
+        </StackPanel>
+    </Grid>
+</Page>

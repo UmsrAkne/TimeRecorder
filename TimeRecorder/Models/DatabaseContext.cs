@@ -25,13 +25,22 @@ namespace TimeRecorder.Models
 
         public void Add(TimeStamp timeStamp)
         {
+            if (timeStamp.BaseId != 0)
+            {
+                var baseTimeStamp = TimeStamps.FirstOrDefault(t => t.Id == timeStamp.BaseId);
+                if (baseTimeStamp != null)
+                {
+                    baseTimeStamp.IsLatest = false;
+                }
+            }
+
             TimeStamps.Add(timeStamp);
             SaveChanges();
         }
 
         public List<TimeStamp> GetTimeStamps(TimeStampGroup targetGroup)
         {
-            return TimeStamps.Where(t => t.GroupId == targetGroup.Id)
+            return TimeStamps.Where(t => t.GroupId == targetGroup.Id && t.IsLatest)
                 .OrderBy(t => t.DateTime)
                 .ToList();
         }

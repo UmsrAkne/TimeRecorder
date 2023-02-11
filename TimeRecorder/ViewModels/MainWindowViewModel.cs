@@ -5,7 +5,9 @@ using System.Linq;
 using System.Windows;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Services.Dialogs;
 using TimeRecorder.Models;
+using TimeRecorder.Views;
 
 namespace TimeRecorder.ViewModels
 {
@@ -17,6 +19,7 @@ namespace TimeRecorder.ViewModels
         private string title = "Time Recorder";
         private List<TimeStamp> timeStamps;
         private bool reversOrder;
+        private IDialogService dialogService;
 
         private DelegateCommand reversOrderCommand;
         private DelegateCommand<string> addTimeStampCommand;
@@ -29,8 +32,9 @@ namespace TimeRecorder.ViewModels
         private bool showActiveEventTimeStamp = true;
         private string inputText;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(IDialogService dialogService)
         {
+            this.dialogService = dialogService;
             currentGroup = GetDatabaseContext().GetLatestGroup();
             LatestGroup = GetDatabaseContext().GetLatestGroup();
             UpdateTimeStamps();
@@ -135,6 +139,20 @@ namespace TimeRecorder.ViewModels
                 reversOrder = !reversOrder;
                 UpdateTimeStamps();
             });
+
+        public DelegateCommand<TimeStamp> ShowEditPageCommand => new DelegateCommand<TimeStamp>((ts) =>
+        {
+            // ReSharper disable once UnusedParameter.Local
+            var param = new DialogParameters { { nameof(TimeStamp), ts } };
+            dialogService.ShowDialog(nameof(EditPage), param, result =>
+            {
+                if (result.Result == ButtonResult.Yes)
+                {
+                    GetDatabaseContext().Add(result.Parameters.GetValue<TimeStamp>(nameof(TimeStamp)));
+                    UpdateTimeStamps();
+                }
+            });
+        });
 
         private void UpdateTimeStamps()
         {
