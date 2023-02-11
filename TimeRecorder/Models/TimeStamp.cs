@@ -25,6 +25,9 @@ namespace TimeRecorder.Models
         public int BaseId { get; set; }
 
         [Required]
+        public bool IsLatest { get; set; } = true;
+
+        [Required]
         public DateTime DateTime { get; set; } = DateTime.Now;
 
         [Required]
