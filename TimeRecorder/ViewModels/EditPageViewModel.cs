@@ -30,7 +30,7 @@ namespace TimeRecorder.ViewModels
                 var culture = CultureInfo.CurrentCulture;
                 const DateTimeStyles styles = DateTimeStyles.None;
 
-                if (DateTime.TryParseExact(str, "yyMMddHHmm", culture, styles, out var result))
+                if (DateTime.TryParseExact(str, "yyMMddHHmmss", culture, styles, out var result))
                 {
                     CurrentTimeStamp.DateTime = result;
                     SetProperty(ref dateTimeText, value);
@@ -73,7 +73,7 @@ namespace TimeRecorder.ViewModels
                 DateTime = OldTimeStamp.DateTime,
             };
 
-            DateTimeText = CurrentTimeStamp.DateTime.ToString("yy/MM/dd HH:mm");
+            DateTimeText = CurrentTimeStamp.DateTime.ToString("yy/MM/dd HH:mm:ss");
         }
     }
 }
