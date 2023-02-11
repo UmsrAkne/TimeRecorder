@@ -16,6 +16,16 @@
         <converters:DateTimeConverter x:Key="DateTimeConverter" />
     </Page.Resources>
 
+    <Page.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
+
+        <KeyBinding
+            Key="Enter"
+            Command="{Binding ConfirmCommand}"
+            Modifiers="Control" />
+
+    </Page.InputBindings>
+
     <Grid FocusManager.FocusedElement="{Binding ElementName=TextBox}">
         <Grid.Resources>
             <Style TargetType="TextBlock">
@@ -82,21 +92,21 @@
             Orientation="Horizontal">
 
             <Button
-                Width="100"
+                Width="140"
                 Height="25"
                 Margin="10"
                 Padding="5,0"
                 Background="LightBlue"
                 Command="{Binding ConfirmCommand}"
-                Content="Confirm" />
+                Content="Confirm (Ctrl + Enter)" />
 
             <Button
-                Width="80"
+                Width="100"
                 Height="25"
                 Margin="10"
                 Padding="5,0"
                 Command="{Binding CloseCommand}"
-                Content="Cancel" />
+                Content="Cancel (Escape)" />
 
         </StackPanel>
     </Grid>
