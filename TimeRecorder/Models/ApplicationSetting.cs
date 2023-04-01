@@ -12,6 +12,8 @@ public class ApplicationSetting
 
     public string DefaultAutoComment { get; set; }
 
+    public string RunAppMessage { get; set; } = "アプリ起動";
+
     public static void WriteApplicationSetting(ApplicationSetting setting)
     {
         var jsonSerializeSetting = new JsonSerializerSettings()

@@ -38,13 +38,15 @@ namespace TimeRecorder
             context.Add(group);
             currentGroupId = group.Id;
 
-            var timeStamp = new TimeStamp() { Comment = "アプリ起動", GroupId = currentGroupId };
-            context.Add(timeStamp);
-
             if (!File.Exists(ApplicationSetting.AppSettingFileName))
             {
                 ApplicationSetting.WriteApplicationSetting(new ApplicationSetting());
             }
+
+            var appSetting = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
+
+            var timeStamp = new TimeStamp() { Comment = appSetting.RunAppMessage, GroupId = currentGroupId };
+            context.Add(timeStamp);
 
             base.OnStartup(e);
         }

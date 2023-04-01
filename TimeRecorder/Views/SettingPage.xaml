@@ -34,6 +34,14 @@
             <TextBox Text="{Binding ApplicationSetting.DefaultAutoComment}" />
         </DockPanel>
 
+        <Border Height="0" Margin="0,3" />
+
+        <DockPanel>
+            <TextBlock Text="起動時コメント" />
+            <Border Width="0" Margin="5,0" />
+            <TextBox Text="{Binding ApplicationSetting.RunAppMessage}" />
+        </DockPanel>
+
         <Border Height="0" Margin="0,5" />
 
         <Button
