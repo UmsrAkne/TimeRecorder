@@ -8,9 +8,9 @@ public class ApplicationSetting
 {
     public static string AppSettingFileName => "applicationSettings.json";
 
-    public string DefaultComment { get; set; }
+    public string DefaultComment { get; set; } = "Default Comment";
 
-    public string DefaultAutoComment { get; set; }
+    public string DefaultAutoComment { get; set; } = "Default Comment (Auto )";
 
     public string RunAppMessage { get; set; } = "アプリ起動";
 
