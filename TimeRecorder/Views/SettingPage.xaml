@@ -4,9 +4,42 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:viewModels="clr-namespace:TimeRecorder.ViewModels"
     Title="SettingPage"
     Width="800"
-    Height="450"
+    d:DataContext="{d:DesignInstance viewModels:SettingPageViewModel}"
+    Background="{StaticResource BackgroundBrush}"
     mc:Ignorable="d">
-    <Grid />
+
+    <StackPanel Margin="10">
+        <StackPanel.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+                <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
+                <Setter Property="Width" Value="100" />
+            </Style>
+        </StackPanel.Resources>
+
+        <DockPanel>
+            <TextBlock Text="デフォルトコメント" />
+            <Border Width="0" Margin="5,0" />
+            <TextBox />
+        </DockPanel>
+
+        <Border Height="0" Margin="0,3" />
+
+        <DockPanel>
+            <TextBlock Text="オートコメント" />
+            <Border Width="0" Margin="5,0" />
+            <TextBox />
+        </DockPanel>
+
+        <Border Height="0" Margin="0,5" />
+
+        <Button
+            Width="120"
+            HorizontalAlignment="Right"
+            Command="{Binding CloseCommand}"
+            Content="Close ( Esc )" />
+    </StackPanel>
 </Page>
