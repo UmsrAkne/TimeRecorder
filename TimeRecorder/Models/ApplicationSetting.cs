@@ -1,21 +1,34 @@
-using Prism.Mvvm;
+using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace TimeRecorder.Models;
 
-public class ApplicationSetting : BindableBase
+public class ApplicationSetting
 {
-    private string defaultComment = string.Empty;
-    private string defaultAutoComment = string.Empty;
+    public static string AppSettingFileName => "applicationSettings.json";
 
-    public string DefaultComment
+    public string DefaultComment { get; set; }
+
+    public string DefaultAutoComment { get; set; }
+
+    public static void WriteApplicationSetting(ApplicationSetting setting)
     {
-        get => defaultComment;
-        set => SetProperty(ref defaultComment, value);
+        var jsonSerializeSetting = new JsonSerializerSettings()
+        {
+            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            Formatting = Formatting.Indented,
+        };
+
+        string data = JsonConvert.SerializeObject(setting, jsonSerializeSetting);
+
+        using StreamWriter sw = File.CreateText(AppSettingFileName);
+        sw.Write(data);
     }
 
-    public string DefaultAutoComment
+    public static ApplicationSetting ReadApplicationSetting(string jsonFilePath)
     {
-        get => defaultAutoComment;
-        set => SetProperty(ref defaultAutoComment, value);
+        using var reader = new StreamReader(jsonFilePath);
+        return new JsonSerializer().Deserialize<ApplicationSetting>(new JsonTextReader(reader));
     }
 }

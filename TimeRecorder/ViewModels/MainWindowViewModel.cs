@@ -19,6 +19,7 @@ namespace TimeRecorder.ViewModels
         private string title = "Time Recorder";
         private List<TimeStamp> timeStamps;
         private bool reversOrder;
+        private ApplicationSetting appSettings;
         private IDialogService dialogService;
 
         private DelegateCommand reversOrderCommand;
@@ -35,6 +36,7 @@ namespace TimeRecorder.ViewModels
         public MainWindowViewModel(IDialogService dialogService)
         {
             this.dialogService = dialogService;
+            appSettings = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
             currentGroup = GetDatabaseContext().GetLatestGroup();
             LatestGroup = GetDatabaseContext().GetLatestGroup();
             UpdateTimeStamps();
@@ -156,7 +158,10 @@ namespace TimeRecorder.ViewModels
 
         public DelegateCommand ShowSettingPageCommand => new DelegateCommand(() =>
         {
-            dialogService.ShowDialog(nameof(SettingPage), new DialogParameters(), result => { });
+            dialogService.ShowDialog(nameof(SettingPage), new DialogParameters(), result =>
+            {
+                appSettings = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
+            });
         });
 
         private void UpdateTimeStamps()

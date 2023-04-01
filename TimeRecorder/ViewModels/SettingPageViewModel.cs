@@ -12,7 +12,7 @@ public class SettingPageViewModel : BindableBase, IDialogAware
 
     public string Title => string.Empty;
 
-    public ApplicationSetting ApplicationSetting { get; } = new ApplicationSetting();
+    public ApplicationSetting ApplicationSetting { get; private set; }
 
     public DelegateCommand CloseCommand => new DelegateCommand(() =>
     {
@@ -23,9 +23,11 @@ public class SettingPageViewModel : BindableBase, IDialogAware
 
     public void OnDialogClosed()
     {
+        ApplicationSetting.WriteApplicationSetting(ApplicationSetting);
     }
 
     public void OnDialogOpened(IDialogParameters parameters)
     {
+        ApplicationSetting = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
     }
 }

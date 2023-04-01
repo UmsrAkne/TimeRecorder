@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Windows;
 using Prism.Ioc;
 using TimeRecorder.Models;
@@ -39,6 +40,11 @@ namespace TimeRecorder
 
             var timeStamp = new TimeStamp() { Comment = "アプリ起動", GroupId = currentGroupId };
             context.Add(timeStamp);
+
+            if (!File.Exists(ApplicationSetting.AppSettingFileName))
+            {
+                ApplicationSetting.WriteApplicationSetting(new ApplicationSetting());
+            }
 
             base.OnStartup(e);
         }
