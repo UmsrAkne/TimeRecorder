@@ -46,6 +46,7 @@ namespace TimeRecorder
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterDialog<EditPage, EditPageViewModel>();
+            containerRegistry.RegisterDialog<SettingPage, SettingPageViewModel>();
         }
     }
 }

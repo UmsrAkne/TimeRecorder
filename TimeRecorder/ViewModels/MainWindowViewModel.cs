@@ -154,6 +154,11 @@ namespace TimeRecorder.ViewModels
             });
         });
 
+        public DelegateCommand ShowSettingPageCommand => new DelegateCommand(() =>
+        {
+            dialogService.ShowDialog(nameof(SettingPage), new DialogParameters(), result => { });
+        });
+
         private void UpdateTimeStamps()
         {
             List<TimeStamp> timeStampList;

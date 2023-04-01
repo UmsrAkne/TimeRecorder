@@ -93,6 +93,8 @@
 
                     <MenuItem Command="{Binding ReversOrderCommand}" Header="降順/昇順を切り替える" />
                 </MenuItem>
+
+                <MenuItem Command="{Binding ShowSettingPageCommand}" Header="設定" />
             </Menu>
 
             <StackPanel Margin="4,2" Orientation="Horizontal">
