@@ -23,7 +23,7 @@
         <DockPanel>
             <TextBlock Text="デフォルトコメント" />
             <Border Width="0" Margin="5,0" />
-            <TextBox />
+            <TextBox Text="{Binding ApplicationSetting.DefaultComment}" />
         </DockPanel>
 
         <Border Height="0" Margin="0,3" />
@@ -31,7 +31,7 @@
         <DockPanel>
             <TextBlock Text="オートコメント" />
             <Border Width="0" Margin="5,0" />
-            <TextBox />
+            <TextBox Text="{Binding ApplicationSetting.DefaultAutoComment}" />
         </DockPanel>
 
         <Border Height="0" Margin="0,5" />
