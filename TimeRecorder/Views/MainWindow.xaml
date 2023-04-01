@@ -186,7 +186,6 @@
                 <Button
                     Padding="5,2"
                     Command="{Binding AddTimeStampCommand}"
-                    CommandParameter="User TimeStamp"
                     Content="Auto TS (Ctrl + S)" />
 
             </StackPanel>

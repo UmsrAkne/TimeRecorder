@@ -23,7 +23,7 @@ namespace TimeRecorder.ViewModels
         private IDialogService dialogService;
 
         private DelegateCommand reversOrderCommand;
-        private DelegateCommand<string> addTimeStampCommand;
+        private DelegateCommand addTimeStampCommand;
         private DelegateCommand addCommentTimeStampCommand;
         private DelegateCommand prevHistoryCommand;
         private DelegateCommand nextHistoryCommand;
@@ -60,19 +60,10 @@ namespace TimeRecorder.ViewModels
             }
         }
 
-        public DelegateCommand<string> AddTimeStampCommand =>
-            addTimeStampCommand ??= new DelegateCommand<string>(comment =>
+        public DelegateCommand AddTimeStampCommand =>
+            addTimeStampCommand ??= new DelegateCommand(() =>
             {
-                var context = GetDatabaseContext();
-                var timeStamp = new TimeStamp()
-                {
-                    Comment = comment,
-                    GroupId = LatestGroup.Id,
-                };
-
-                context.Add(timeStamp);
-                UpdateTimeStamps();
-                Title = timeStamp.DateTime.ToString("MM/dd HH:mm:ss");
+                AddTimeStamp(appSettings.DefaultAutoComment);
             });
 
         public DelegateCommand AddCommentTimeStampCommand =>
@@ -81,10 +72,10 @@ namespace TimeRecorder.ViewModels
                 var comment = InputText;
                 if (string.IsNullOrWhiteSpace(comment))
                 {
-                    comment = "User TimeStamp (no comment)";
+                    comment = appSettings.DefaultComment;
                 }
 
-                AddTimeStampCommand.Execute(comment);
+                AddTimeStamp(comment);
                 InputText = string.Empty;
             });
 
@@ -163,6 +154,20 @@ namespace TimeRecorder.ViewModels
                 appSettings = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
             });
         });
+
+        private void AddTimeStamp(string comment)
+        {
+            var context = GetDatabaseContext();
+            var timeStamp = new TimeStamp()
+            {
+                Comment = comment,
+                GroupId = LatestGroup.Id,
+            };
+
+            context.Add(timeStamp);
+            UpdateTimeStamps();
+            Title = timeStamp.DateTime.ToString("MM/dd HH:mm:ss");
+        }
 
         private void UpdateTimeStamps()
         {
