@@ -93,6 +93,8 @@
 
                     <MenuItem Command="{Binding ReversOrderCommand}" Header="降順/昇順を切り替える" />
                 </MenuItem>
+
+                <MenuItem Command="{Binding ShowSettingPageCommand}" Header="設定" />
             </Menu>
 
             <StackPanel Margin="4,2" Orientation="Horizontal">
@@ -184,7 +186,6 @@
                 <Button
                     Padding="5,2"
                     Command="{Binding AddTimeStampCommand}"
-                    CommandParameter="User TimeStamp"
                     Content="Auto TS (Ctrl + S)" />
 
             </StackPanel>
