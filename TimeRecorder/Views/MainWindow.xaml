@@ -201,7 +201,11 @@
                 <Button
                     Padding="5,2"
                     Command="{Binding AddTimeStampCommand}"
-                    Content="Auto TS (Ctrl + S)" />
+                    Content="Auto TS (Ctrl + S)">
+                    <Button.CommandParameter>
+                        <models:CommentType>Default</models:CommentType>
+                    </Button.CommandParameter>
+                </Button>
 
             </StackPanel>
 

@@ -14,13 +14,14 @@ namespace TimeRecorder.ViewModels
     // ReSharper disable once ClassNeverInstantiated.Global
     public class MainWindowViewModel : BindableBase
     {
+        private readonly IDialogService dialogService;
+
         private TimeStampGroup currentGroup;
 
         private string title = "Time Recorder";
         private List<TimeStamp> timeStamps;
         private bool reversOrder;
         private ApplicationSetting appSettings;
-        private IDialogService dialogService;
 
         private DelegateCommand reversOrderCommand;
         private DelegateCommand<object> addTimeStampCommand;
@@ -30,7 +31,7 @@ namespace TimeRecorder.ViewModels
         private DelegateCommand latestHistoryCommand;
         private DelegateCommand<IEnumerable> copyTimeStampsCommand;
 
-        private bool showActiveEventTimeStamp = true;
+        private bool showActiveEventTimeStamp;
         private string inputText;
 
         public MainWindowViewModel(IDialogService dialogService)
@@ -171,7 +172,7 @@ namespace TimeRecorder.ViewModels
 
         public DelegateCommand ShowSettingPageCommand => new DelegateCommand(() =>
         {
-            dialogService.ShowDialog(nameof(SettingPage), new DialogParameters(), result =>
+            dialogService.ShowDialog(nameof(SettingPage), new DialogParameters(), _ =>
             {
                 appSettings = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
             });
