@@ -14,6 +14,12 @@ public class ApplicationSetting
 
     public string RunAppMessage { get; set; } = "アプリ起動";
 
+    public string CloseAppMessage { get; set; } = "アプリ終了";
+
+    public string ActivatedMessage { get; set; } = "Activated";
+
+    public string DeactivatedMessage { get; set; } = "Deactivated";
+
     public bool VisibleActivatedLog { get; set; } = true;
 
     public static void WriteApplicationSetting(ApplicationSetting setting)

@@ -34,12 +34,36 @@
             <TextBox Text="{Binding ApplicationSetting.DefaultAutoComment}" />
         </DockPanel>
 
+        <Border Height="0" Margin="0,8" />
+
+        <DockPanel>
+            <TextBlock Text="Activated" />
+            <Border Width="0" Margin="5,0" />
+            <TextBox Text="{Binding ApplicationSetting.ActivatedMessage}" />
+        </DockPanel>
+
+        <Border Height="0" Margin="0,3" />
+
+        <DockPanel>
+            <TextBlock Text="Deactivated" />
+            <Border Width="0" Margin="5,0" />
+            <TextBox Text="{Binding ApplicationSetting.DeactivatedMessage}" />
+        </DockPanel>
+
         <Border Height="0" Margin="0,3" />
 
         <DockPanel>
             <TextBlock Text="起動時コメント" />
             <Border Width="0" Margin="5,0" />
             <TextBox Text="{Binding ApplicationSetting.RunAppMessage}" />
+        </DockPanel>
+
+        <Border Height="0" Margin="0,3" />
+
+        <DockPanel>
+            <TextBlock Text="終了時コメント" />
+            <Border Width="0" Margin="5,0" />
+            <TextBox Text="{Binding ApplicationSetting.CloseAppMessage}" />
         </DockPanel>
 
         <Border Height="0" Margin="0,5" />
