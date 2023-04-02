@@ -23,6 +23,11 @@ public enum CommentType
     Deactivated,
 
     /// <summary>
+    /// グループ作成時のコメント
+    /// </summary>
+    CreateGroup,
+
+    /// <summary>
     /// ユーザーがコメント未入力でつけたコメント
     /// </summary>
     Default,
