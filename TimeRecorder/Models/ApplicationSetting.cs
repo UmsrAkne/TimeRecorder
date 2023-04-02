@@ -20,6 +20,8 @@ public class ApplicationSetting
 
     public string DeactivatedMessage { get; set; } = "Deactivated";
 
+    public string CreateGroupMessage { get; set; } = "Create Group";
+
     public bool VisibleActivatedLog { get; set; } = true;
 
     public static void WriteApplicationSetting(ApplicationSetting setting)

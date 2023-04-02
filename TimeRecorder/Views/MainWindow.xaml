@@ -100,6 +100,10 @@
                     </Style>
                 </Menu.Resources>
 
+                <MenuItem Header="機能">
+                    <MenuItem Command="{Binding AddNewGroupCommand}" Header="新規グループを作成" />
+                </MenuItem>
+
                 <MenuItem Header="表示">
                     <MenuItem
                         Header="Activate を表示"

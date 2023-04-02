@@ -23,6 +23,7 @@ namespace TimeRecorder.ViewModels
         private bool reversOrder;
         private ApplicationSetting appSettings;
 
+        private DelegateCommand addNewGroupCommand;
         private DelegateCommand reversOrderCommand;
         private DelegateCommand<object> addTimeStampCommand;
         private DelegateCommand addCommentTimeStampCommand;
@@ -64,6 +65,22 @@ namespace TimeRecorder.ViewModels
             }
         }
 
+        public DelegateCommand AddNewGroupCommand =>
+            addNewGroupCommand ??= new DelegateCommand(() =>
+            {
+                var ts = new TimeStamp()
+                {
+                    DateTime = DateTime.Now,
+                    Comment = appSettings.CreateGroupMessage,
+                };
+
+                var context = GetDatabaseContext();
+                context.AddNewGroup(ts);
+                currentGroup = context.GetLatestGroup();
+                LatestGroup = currentGroup;
+                UpdateTimeStamps();
+            });
+
         public DelegateCommand<object> AddTimeStampCommand =>
             addTimeStampCommand ??= new DelegateCommand<object>(commentType =>
             {
@@ -82,6 +99,9 @@ namespace TimeRecorder.ViewModels
                         break;
                     case CommentType.CloseApp:
                         AddTimeStamp(appSettings.CloseAppMessage);
+                        break;
+                    case CommentType.CreateGroup:
+                        AddTimeStamp(appSettings.CreateGroupMessage);
                         break;
                     case CommentType.Default:
                         AddTimeStamp(appSettings.DefaultAutoComment);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
@@ -17,12 +18,6 @@ namespace TimeRecorder.Models
         // ReSharper disable once UnusedAutoPropertyAccessor.Local
         private DbSet<TimeStamp> TimeStamps { get; set; }
 
-        public void Add(TimeStampGroup group)
-        {
-            TimeStampGroups.Add(group);
-            SaveChanges();
-        }
-
         public void Add(TimeStamp timeStamp)
         {
             if (timeStamp.BaseId != 0)
@@ -35,6 +30,21 @@ namespace TimeRecorder.Models
             }
 
             TimeStamps.Add(timeStamp);
+            SaveChanges();
+        }
+
+        /// <summary>
+        /// 新しいグループを追加し、そのグループの id をパラメーターの GroupId に割り当てます
+        /// </summary>
+        /// <param name="ts">新しいグループに追加するタイムスタンプ</param>
+        public void AddNewGroup(TimeStamp ts)
+        {
+            var group = new TimeStampGroup() { DateTime = DateTime.Now, };
+            Add(group);
+
+            ts.GroupId = group.Id;
+            Add(ts);
+
             SaveChanges();
         }
 
@@ -64,6 +74,12 @@ namespace TimeRecorder.Models
 
             var connectionString = new SqliteConnectionStringBuilder { DataSource = dbFileName }.ToString();
             optionsBuilder.UseSqlite(new SQLiteConnection(connectionString));
+        }
+
+        private void Add(TimeStampGroup group)
+        {
+            TimeStampGroups.Add(group);
+            SaveChanges();
         }
     }
 }
