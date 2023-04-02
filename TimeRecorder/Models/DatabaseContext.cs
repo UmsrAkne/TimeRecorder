@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
@@ -35,6 +36,21 @@ namespace TimeRecorder.Models
             }
 
             TimeStamps.Add(timeStamp);
+            SaveChanges();
+        }
+
+        /// <summary>
+        /// 新しいグループを追加し、そのグループの id をパラメーターの GroupId に割り当てます
+        /// </summary>
+        /// <param name="ts">新しいグループに追加するタイムスタンプ</param>
+        public void AddNewGroup(TimeStamp ts)
+        {
+            var group = new TimeStampGroup() { DateTime = DateTime.Now, };
+            Add(group);
+
+            ts.GroupId = group.Id;
+            Add(ts);
+
             SaveChanges();
         }
 
