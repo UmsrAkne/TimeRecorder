@@ -37,6 +37,7 @@ namespace TimeRecorder.ViewModels
         {
             this.dialogService = dialogService;
             appSettings = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
+            showActiveEventTimeStamp = appSettings.VisibleActivatedLog;
             currentGroup = GetDatabaseContext().GetLatestGroup();
             LatestGroup = GetDatabaseContext().GetLatestGroup();
             UpdateTimeStamps();
@@ -55,6 +56,8 @@ namespace TimeRecorder.ViewModels
             get => showActiveEventTimeStamp;
             set
             {
+                appSettings.VisibleActivatedLog = value;
+                ApplicationSetting.WriteApplicationSetting(appSettings);
                 SetProperty(ref showActiveEventTimeStamp, value);
                 UpdateTimeStamps();
             }

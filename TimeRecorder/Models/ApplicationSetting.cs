@@ -14,6 +14,8 @@ public class ApplicationSetting
 
     public string RunAppMessage { get; set; } = "アプリ起動";
 
+    public bool VisibleActivatedLog { get; set; } = true;
+
     public static void WriteApplicationSetting(ApplicationSetting setting)
     {
         var jsonSerializeSetting = new JsonSerializerSettings()
