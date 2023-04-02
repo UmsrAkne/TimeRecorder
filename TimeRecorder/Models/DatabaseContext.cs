@@ -18,12 +18,6 @@ namespace TimeRecorder.Models
         // ReSharper disable once UnusedAutoPropertyAccessor.Local
         private DbSet<TimeStamp> TimeStamps { get; set; }
 
-        public void Add(TimeStampGroup group)
-        {
-            TimeStampGroups.Add(group);
-            SaveChanges();
-        }
-
         public void Add(TimeStamp timeStamp)
         {
             if (timeStamp.BaseId != 0)
@@ -80,6 +74,12 @@ namespace TimeRecorder.Models
 
             var connectionString = new SqliteConnectionStringBuilder { DataSource = dbFileName }.ToString();
             optionsBuilder.UseSqlite(new SQLiteConnection(connectionString));
+        }
+
+        private void Add(TimeStampGroup group)
+        {
+            TimeStampGroups.Add(group);
+            SaveChanges();
         }
     }
 }
