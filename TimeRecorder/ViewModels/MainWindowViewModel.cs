@@ -23,7 +23,7 @@ namespace TimeRecorder.ViewModels
         private IDialogService dialogService;
 
         private DelegateCommand reversOrderCommand;
-        private DelegateCommand addTimeStampCommand;
+        private DelegateCommand<object> addTimeStampCommand;
         private DelegateCommand addCommentTimeStampCommand;
         private DelegateCommand prevHistoryCommand;
         private DelegateCommand nextHistoryCommand;
@@ -37,6 +37,7 @@ namespace TimeRecorder.ViewModels
         {
             this.dialogService = dialogService;
             appSettings = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
+            showActiveEventTimeStamp = appSettings.VisibleActivatedLog;
             currentGroup = GetDatabaseContext().GetLatestGroup();
             LatestGroup = GetDatabaseContext().GetLatestGroup();
             UpdateTimeStamps();
@@ -55,15 +56,36 @@ namespace TimeRecorder.ViewModels
             get => showActiveEventTimeStamp;
             set
             {
+                appSettings.VisibleActivatedLog = value;
+                ApplicationSetting.WriteApplicationSetting(appSettings);
                 SetProperty(ref showActiveEventTimeStamp, value);
                 UpdateTimeStamps();
             }
         }
 
-        public DelegateCommand AddTimeStampCommand =>
-            addTimeStampCommand ??= new DelegateCommand(() =>
+        public DelegateCommand<object> AddTimeStampCommand =>
+            addTimeStampCommand ??= new DelegateCommand<object>(commentType =>
             {
-                AddTimeStamp(appSettings.DefaultAutoComment);
+                var c = (CommentType)commentType;
+
+                switch (c)
+                {
+                    case CommentType.RunApp:
+                        AddTimeStamp(appSettings.RunAppMessage);
+                        break;
+                    case CommentType.Activated:
+                        AddTimeStamp(appSettings.ActivatedMessage);
+                        break;
+                    case CommentType.Deactivated:
+                        AddTimeStamp(appSettings.DeactivatedMessage);
+                        break;
+                    case CommentType.CloseApp:
+                        AddTimeStamp(appSettings.CloseAppMessage);
+                        break;
+                    case CommentType.Default:
+                        AddTimeStamp(appSettings.DefaultAutoComment);
+                        break;
+                }
             });
 
         public DelegateCommand AddCommentTimeStampCommand =>

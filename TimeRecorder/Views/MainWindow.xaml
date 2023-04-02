@@ -31,8 +31,11 @@
         <KeyBinding
             Key="S"
             Command="{Binding AddTimeStampCommand}"
-            CommandParameter="User TimeStamp"
-            Modifiers="Control" />
+            Modifiers="Control">
+            <KeyBinding.CommandParameter>
+                <models:CommentType>Default</models:CommentType>
+            </KeyBinding.CommandParameter>
+        </KeyBinding>
 
         <KeyBinding
             Key="C"
@@ -49,15 +52,27 @@
 
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Activated">
-            <i:InvokeCommandAction Command="{Binding AddTimeStampCommand}" CommandParameter="Activated" />
+            <i:InvokeCommandAction Command="{Binding AddTimeStampCommand}">
+                <i:InvokeCommandAction.CommandParameter>
+                    <models:CommentType>Activated</models:CommentType>
+                </i:InvokeCommandAction.CommandParameter>
+            </i:InvokeCommandAction>
         </i:EventTrigger>
 
         <i:EventTrigger EventName="Deactivated">
-            <i:InvokeCommandAction Command="{Binding AddTimeStampCommand}" CommandParameter="Deactivated" />
+            <i:InvokeCommandAction Command="{Binding AddTimeStampCommand}">
+                <i:InvokeCommandAction.CommandParameter>
+                    <models:CommentType>Deactivated</models:CommentType>
+                </i:InvokeCommandAction.CommandParameter>
+            </i:InvokeCommandAction>
         </i:EventTrigger>
 
         <i:EventTrigger EventName="Closed">
-            <i:InvokeCommandAction Command="{Binding AddTimeStampCommand}" CommandParameter="アプリ終了" />
+            <i:InvokeCommandAction Command="{Binding AddTimeStampCommand}">
+                <i:InvokeCommandAction.CommandParameter>
+                    <models:CommentType>CloseApp</models:CommentType>
+                </i:InvokeCommandAction.CommandParameter>
+            </i:InvokeCommandAction>
         </i:EventTrigger>
 
     </i:Interaction.Triggers>
