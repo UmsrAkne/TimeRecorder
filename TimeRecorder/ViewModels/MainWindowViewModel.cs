@@ -23,7 +23,7 @@ namespace TimeRecorder.ViewModels
         private IDialogService dialogService;
 
         private DelegateCommand reversOrderCommand;
-        private DelegateCommand addTimeStampCommand;
+        private DelegateCommand<object> addTimeStampCommand;
         private DelegateCommand addCommentTimeStampCommand;
         private DelegateCommand prevHistoryCommand;
         private DelegateCommand nextHistoryCommand;
@@ -63,10 +63,29 @@ namespace TimeRecorder.ViewModels
             }
         }
 
-        public DelegateCommand AddTimeStampCommand =>
-            addTimeStampCommand ??= new DelegateCommand(() =>
+        public DelegateCommand<object> AddTimeStampCommand =>
+            addTimeStampCommand ??= new DelegateCommand<object>(commentType =>
             {
-                AddTimeStamp(appSettings.DefaultAutoComment);
+                var c = (CommentType)commentType;
+
+                switch (c)
+                {
+                    case CommentType.RunApp:
+                        AddTimeStamp(appSettings.RunAppMessage);
+                        break;
+                    case CommentType.Activated:
+                        AddTimeStamp("activated");
+                        break;
+                    case CommentType.Deactivated:
+                        AddTimeStamp("deactivated");
+                        break;
+                    case CommentType.CloseApp:
+                        AddTimeStamp("CloseApp");
+                        break;
+                    case CommentType.Default:
+                        AddTimeStamp(appSettings.DefaultAutoComment);
+                        break;
+                }
             });
 
         public DelegateCommand AddCommentTimeStampCommand =>
