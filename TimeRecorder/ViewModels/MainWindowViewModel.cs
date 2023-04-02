@@ -74,13 +74,13 @@ namespace TimeRecorder.ViewModels
                         AddTimeStamp(appSettings.RunAppMessage);
                         break;
                     case CommentType.Activated:
-                        AddTimeStamp("activated");
+                        AddTimeStamp(appSettings.ActivatedMessage);
                         break;
                     case CommentType.Deactivated:
-                        AddTimeStamp("deactivated");
+                        AddTimeStamp(appSettings.DeactivatedMessage);
                         break;
                     case CommentType.CloseApp:
-                        AddTimeStamp("CloseApp");
+                        AddTimeStamp(appSettings.CloseAppMessage);
                         break;
                     case CommentType.Default:
                         AddTimeStamp(appSettings.DefaultAutoComment);
