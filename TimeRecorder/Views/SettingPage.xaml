@@ -18,6 +18,10 @@
                 <Setter Property="Foreground" Value="{StaticResource ForegroundBrush}" />
                 <Setter Property="Width" Value="100" />
             </Style>
+
+            <Style TargetType="TextBox">
+                <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+            </Style>
         </StackPanel.Resources>
 
         <DockPanel>

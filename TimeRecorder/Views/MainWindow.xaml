@@ -191,7 +191,10 @@
 
         <StackPanel Grid.Row="2" VerticalAlignment="Center">
 
-            <TextBox Name="TextBox" Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox
+                Name="TextBox"
+                FontSize="{StaticResource FontSize}"
+                Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" />
 
             <StackPanel Margin="5" Orientation="Horizontal">
 
