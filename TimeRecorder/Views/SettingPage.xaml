@@ -11,6 +11,10 @@
     Background="{StaticResource BackgroundBrush}"
     mc:Ignorable="d">
 
+    <Page.InputBindings>
+        <KeyBinding Key="Escape" Command="{Binding CloseCommand}" />
+    </Page.InputBindings>
+
     <StackPanel Margin="10">
         <StackPanel.Resources>
             <Style TargetType="TextBlock">
