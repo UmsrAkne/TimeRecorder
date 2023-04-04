@@ -166,6 +166,11 @@ namespace TimeRecorder.ViewModels
             {
                 var writer = new TimeStampWriter();
                 var tss = selectedItemCollection.Cast<TimeStamp>().ToList();
+                if (tss.Count == 0)
+                {
+                    tss = TimeStamps;
+                }
+
                 Clipboard.SetDataObject(writer.GetTimeStampString(tss));
             });
 
