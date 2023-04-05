@@ -191,6 +191,11 @@
 
         <StackPanel Grid.Row="2" VerticalAlignment="Center">
 
+            <StackPanel Margin="1,2" Orientation="Horizontal">
+                <TextBlock Text="Total : " />
+                <TextBlock Text="{Binding TotalTimeSpan}" />
+            </StackPanel>
+
             <TextBox
                 Name="TextBox"
                 FontSize="{StaticResource FontSize}"
