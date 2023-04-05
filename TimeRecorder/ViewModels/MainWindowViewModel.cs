@@ -34,6 +34,7 @@ namespace TimeRecorder.ViewModels
 
         private bool showActiveEventTimeStamp;
         private string inputText;
+        private TimeSpan totalTimeSpan;
 
         public MainWindowViewModel(IDialogService dialogService)
         {
@@ -52,6 +53,8 @@ namespace TimeRecorder.ViewModels
         public TimeStampGroup LatestGroup { get; private set; }
 
         public string InputText { get => inputText; set => SetProperty(ref inputText, value); }
+
+        public TimeSpan TotalTimeSpan { get => totalTimeSpan; private set => SetProperty(ref totalTimeSpan, value); }
 
         public bool ShowActiveEventTimeStamp
         {
@@ -164,7 +167,11 @@ namespace TimeRecorder.ViewModels
         public DelegateCommand<IEnumerable> CopyTimeStampsCommand =>
             copyTimeStampsCommand ??= new DelegateCommand<IEnumerable>(selectedItemCollection =>
             {
-                var writer = new TimeStampWriter();
+                var writer = new TimeStampWriter()
+                {
+                    AttachTotalTime = appSettings.AttachTotalTime,
+                };
+
                 var tss = selectedItemCollection.Cast<TimeStamp>().ToList();
                 if (tss.Count == 0)
                 {
@@ -242,6 +249,8 @@ namespace TimeRecorder.ViewModels
                 current.ElapsedTime = current.DateTime - beforeTs.DateTime;
                 current.ElapsedTime = TimeSpan.FromSeconds(Math.Floor(current.ElapsedTime.TotalSeconds));
             }
+
+            TotalTimeSpan = new TimeStampWriter().GetTotalTime(timeStampList);
 
             if (reversOrder)
             {

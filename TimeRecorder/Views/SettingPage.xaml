@@ -74,6 +74,17 @@
             <TextBox Text="{Binding ApplicationSetting.CloseAppMessage}" />
         </DockPanel>
 
+        <Border
+            Height="1"
+            Margin="0,10"
+            Background="{StaticResource ForegroundBrush}" />
+
+        <StackPanel Orientation="Horizontal">
+            <CheckBox VerticalAlignment="Center" IsChecked="{Binding ApplicationSetting.AttachTotalTime}" />
+            <Border Width="0" Margin="3,0" />
+            <TextBlock Width="auto" Text="合計時間もコピーする" />
+        </StackPanel>
+
         <Border Height="0" Margin="0,5" />
 
         <Button
