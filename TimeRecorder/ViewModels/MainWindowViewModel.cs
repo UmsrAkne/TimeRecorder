@@ -167,7 +167,11 @@ namespace TimeRecorder.ViewModels
         public DelegateCommand<IEnumerable> CopyTimeStampsCommand =>
             copyTimeStampsCommand ??= new DelegateCommand<IEnumerable>(selectedItemCollection =>
             {
-                var writer = new TimeStampWriter();
+                var writer = new TimeStampWriter()
+                {
+                    AttachTotalTime = appSettings.AttachTotalTime,
+                };
+
                 var tss = selectedItemCollection.Cast<TimeStamp>().ToList();
                 if (tss.Count == 0)
                 {

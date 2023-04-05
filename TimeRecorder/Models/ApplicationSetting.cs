@@ -24,6 +24,8 @@ public class ApplicationSetting
 
     public bool VisibleActivatedLog { get; set; } = true;
 
+    public bool AttachTotalTime { get; set; } = true;
+
     public static void WriteApplicationSetting(ApplicationSetting setting)
     {
         var jsonSerializeSetting = new JsonSerializerSettings()
