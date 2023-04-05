@@ -250,8 +250,7 @@ namespace TimeRecorder.ViewModels
                 current.ElapsedTime = TimeSpan.FromSeconds(Math.Floor(current.ElapsedTime.TotalSeconds));
             }
 
-            TotalTimeSpan =
-                new TimeSpan(0, 0, (int)new TimeStampWriter().GetTotalTime(timeStampList).TotalSeconds);
+            TotalTimeSpan = new TimeStampWriter().GetTotalTime(timeStampList);
 
             if (reversOrder)
             {

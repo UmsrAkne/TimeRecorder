@@ -42,6 +42,9 @@ public class TimeStampWriter
 
         // 最初と最後の DateTime の差を出すので要素数 2 以上は必須
         var sortedList = timeStamps.OrderBy(t => t.DateTime).ToList();
-        return sortedList.LastOrDefault()!.DateTime - sortedList.FirstOrDefault()!.DateTime;
+
+        // 秒よりも細かい単位は不要なので切り捨てる
+        return new TimeSpan(
+            0, 0, (int)(sortedList.LastOrDefault()!.DateTime - sortedList.FirstOrDefault()!.DateTime).TotalSeconds);
     }
 }
