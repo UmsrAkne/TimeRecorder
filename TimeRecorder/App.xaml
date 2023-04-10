@@ -7,6 +7,7 @@
     <Application.Resources>
         <SolidColorBrush x:Key="ForegroundBrush" Color="WhiteSmoke" />
         <SolidColorBrush x:Key="BackgroundBrush" Color="#222222" />
+        <SolidColorBrush x:Key="LightBackgroundBrush" Color="#333333" />
         <system:Double x:Key="FontSize">14</system:Double>
 
         <Style TargetType="Button">
@@ -33,6 +34,11 @@
                                             <Trigger Property="IsMouseOver" Value="True">
                                                 <Setter Property="Background" Value="RoyalBlue" />
                                             </Trigger>
+
+                                            <Trigger Property="IsMouseOver" Value="False">
+                                                <Setter Property="Background" Value="{StaticResource LightBackgroundBrush}" />
+                                            </Trigger>
+
                                         </Style.Triggers>
                                     </Style>
                                 </Border.Style>
