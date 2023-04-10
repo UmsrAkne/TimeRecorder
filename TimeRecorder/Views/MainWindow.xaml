@@ -18,9 +18,6 @@
     mc:Ignorable="d">
 
     <Window.Resources>
-        <SolidColorBrush x:Key="ForegroundBrush" Color="WhiteSmoke" />
-        <SolidColorBrush x:Key="BackgroundBrush" Color="#222222" />
-        <system:Double x:Key="FontSize">14</system:Double>
         <converters:DateTimeConverter x:Key="DateTimeConverter" />
         <system:Double x:Key="DateTimeColumnWidth">110</system:Double>
         <system:Double x:Key="ElapsedTimeColumnWidth">60</system:Double>
