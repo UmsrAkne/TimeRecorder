@@ -1,4 +1,4 @@
-namespace TimeRecorder.Models;
+﻿namespace TimeRecorder.Models;
 
 public enum CommentType
 {
