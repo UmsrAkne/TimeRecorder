@@ -31,6 +31,7 @@ namespace TimeRecorder.ViewModels
         private DelegateCommand nextHistoryCommand;
         private DelegateCommand latestHistoryCommand;
         private DelegateCommand<IEnumerable> copyTimeStampsCommand;
+        private DelegateCommand copyAllTimeStampCommand;
 
         private bool showActiveEventTimeStamp;
         private string inputText;
@@ -179,6 +180,13 @@ namespace TimeRecorder.ViewModels
                 }
 
                 Clipboard.SetDataObject(writer.GetTimeStampString(tss));
+            });
+
+        public DelegateCommand CopyAllTimeStampCommand =>
+            copyAllTimeStampCommand ??= new DelegateCommand(() =>
+            {
+                var writer = new TimeStampWriter { AttachTotalTime = appSettings.AttachTotalTime };
+                Clipboard.SetDataObject(writer.GetTimeStampString(TimeStamps));
             });
 
         public DelegateCommand ReversOrderCommand =>

@@ -41,6 +41,11 @@
             Modifiers="Control" />
 
         <KeyBinding
+            Key="C"
+            Command="{Binding CopyAllTimeStampCommand}"
+            Modifiers="Control+Shift" />
+
+        <KeyBinding
             Key="Enter"
             Command="{Binding AddCommentTimeStampCommand}"
             Modifiers="Control" />
