@@ -104,6 +104,7 @@
 
                 <MenuItem Header="機能">
                     <MenuItem Command="{Binding AddNewGroupCommand}" Header="新規グループを作成" />
+                    <MenuItem Command="{Binding CopyAllTimeStampCommand}" Header="全てのスタンプをコピー" />
                 </MenuItem>
 
                 <MenuItem Header="表示">
