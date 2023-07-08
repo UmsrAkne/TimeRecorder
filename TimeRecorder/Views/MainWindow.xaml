@@ -194,12 +194,13 @@
 
         <StackPanel Grid.Row="2" VerticalAlignment="Center">
 
-            <StackPanel Margin="1,2" Orientation="Horizontal">
+            <StackPanel Margin="4,2" Orientation="Horizontal">
                 <TextBlock Text="Total : " />
                 <TextBlock Text="{Binding TotalTimeSpan}" />
             </StackPanel>
 
             <TextBox
+                Margin="5"
                 Name="TextBox"
                 FontSize="{StaticResource FontSize}"
                 Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" />
