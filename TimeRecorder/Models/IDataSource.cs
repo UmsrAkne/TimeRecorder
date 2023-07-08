@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace TimeRecorder.Models.Converters;
+namespace TimeRecorder.Models;
 
 public interface IDataSource
 {
