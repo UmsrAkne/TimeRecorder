@@ -42,6 +42,12 @@ namespace TimeRecorder.ViewModels
             this.dialogService = dialogService;
             appSettings = ApplicationSetting.ReadApplicationSetting(ApplicationSetting.AppSettingFileName);
             showActiveEventTimeStamp = appSettings.VisibleActivatedLog;
+            var context = GetDatabaseContext();
+            TimeStampGetter = new TimeStampGetter(context)
+            {
+                CurrentId = context.Count,
+            };
+
             currentGroup = GetDatabaseContext().GetLatestGroup();
             LatestGroup = GetDatabaseContext().GetLatestGroup();
             UpdateTimeStamps();
@@ -56,6 +62,8 @@ namespace TimeRecorder.ViewModels
         public string InputText { get => inputText; set => SetProperty(ref inputText, value); }
 
         public TimeSpan TotalTimeSpan { get => totalTimeSpan; private set => SetProperty(ref totalTimeSpan, value); }
+
+        public TimeStampGetter TimeStampGetter { get; }
 
         public bool ShowActiveEventTimeStamp
         {
@@ -72,10 +80,9 @@ namespace TimeRecorder.ViewModels
         public DelegateCommand AddNewGroupCommand =>
             addNewGroupCommand ??= new DelegateCommand(() =>
             {
-                var ts = new TimeStamp()
+                var ts = new TimeStamp
                 {
-                    DateTime = DateTime.Now,
-                    Comment = appSettings.CreateGroupMessage,
+                    DateTime = DateTime.Now, Comment = appSettings.CreateGroupMessage,
                 };
 
                 var context = GetDatabaseContext();
@@ -168,7 +175,7 @@ namespace TimeRecorder.ViewModels
         public DelegateCommand<IEnumerable> CopyTimeStampsCommand =>
             copyTimeStampsCommand ??= new DelegateCommand<IEnumerable>(selectedItemCollection =>
             {
-                var writer = new TimeStampWriter()
+                var writer = new TimeStampWriter
                 {
                     AttachTotalTime = appSettings.AttachTotalTime,
                 };
@@ -185,7 +192,11 @@ namespace TimeRecorder.ViewModels
         public DelegateCommand CopyAllTimeStampCommand =>
             copyAllTimeStampCommand ??= new DelegateCommand(() =>
             {
-                var writer = new TimeStampWriter { AttachTotalTime = appSettings.AttachTotalTime };
+                var writer = new TimeStampWriter
+                {
+                    AttachTotalTime = appSettings.AttachTotalTime,
+                };
+
                 Clipboard.SetDataObject(writer.GetTimeStampString(TimeStamps));
             });
 
@@ -196,10 +207,16 @@ namespace TimeRecorder.ViewModels
                 UpdateTimeStamps();
             });
 
-        public DelegateCommand<TimeStamp> ShowEditPageCommand => new DelegateCommand<TimeStamp>((ts) =>
+        public DelegateCommand<TimeStamp> ShowEditPageCommand => new DelegateCommand<TimeStamp>(ts =>
         {
             // ReSharper disable once UnusedParameter.Local
-            var param = new DialogParameters { { nameof(TimeStamp), ts } };
+            var param = new DialogParameters
+            {
+                {
+                    nameof(TimeStamp), ts
+                },
+            };
+
             dialogService.ShowDialog(nameof(EditPage), param, result =>
             {
                 if (result.Result == ButtonResult.Yes)
@@ -218,13 +235,22 @@ namespace TimeRecorder.ViewModels
             });
         });
 
+        public DelegateCommand GetPrevTimeStampCommand => new DelegateCommand(() =>
+        {
+            InputText = TimeStampGetter.GetPrevTimeStamp().Comment;
+        });
+
+        public DelegateCommand GetNextTimeStampCommand => new DelegateCommand(() =>
+        {
+            InputText = TimeStampGetter.GetNextTimeStamp().Comment;
+        });
+
         private void AddTimeStamp(string comment)
         {
             var context = GetDatabaseContext();
-            var timeStamp = new TimeStamp()
+            var timeStamp = new TimeStamp
             {
-                Comment = comment,
-                GroupId = LatestGroup.Id,
+                Comment = comment, GroupId = LatestGroup.Id,
             };
 
             context.Add(timeStamp);
@@ -235,17 +261,20 @@ namespace TimeRecorder.ViewModels
         private void UpdateTimeStamps()
         {
             List<TimeStamp> timeStampList;
+            var context = GetDatabaseContext();
             if (!ShowActiveEventTimeStamp)
             {
                 // 大文字小文字関係なく、 activated がコメントに含まれるタイムスタンプをリストから除く
-                timeStampList = GetDatabaseContext().GetTimeStamps(currentGroup)
+                timeStampList = context.GetTimeStamps(currentGroup)
                     .Where(t => !t.Comment.Contains("activated", StringComparison.OrdinalIgnoreCase))
                     .ToList();
             }
             else
             {
-                timeStampList = GetDatabaseContext().GetTimeStamps(currentGroup);
+                timeStampList = context.GetTimeStamps(currentGroup);
             }
+
+            TimeStampGetter.CurrentId = context.Count;
 
             // 直前の要素からの経過時間を入力する。
             // [0] に関しては直前の要素は無いため、[1] 始まりで処理する。
