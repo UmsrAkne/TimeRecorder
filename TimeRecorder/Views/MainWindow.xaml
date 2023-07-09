@@ -164,7 +164,9 @@
                     <ContentControl>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="MouseDoubleClick">
-                                <i:InvokeCommandAction Command="{Binding DataContext.ShowEditPageCommand, RelativeSource={RelativeSource AncestorType=ListView}}" CommandParameter="{Binding}" />
+                                <i:InvokeCommandAction
+                                    Command="{Binding DataContext.ShowEditPageCommand, RelativeSource={RelativeSource AncestorType=ListView}}"
+                                    CommandParameter="{Binding}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
 
@@ -182,7 +184,8 @@
                                 </Style>
                             </Grid.Resources>
 
-                            <TextBlock Grid.Column="0" Text="{Binding DateTime, Converter={StaticResource DateTimeConverter}}" />
+                            <TextBlock Grid.Column="0"
+                                       Text="{Binding DateTime, Converter={StaticResource DateTimeConverter}}" />
                             <TextBlock Grid.Column="1" Text="{Binding Comment}" />
                             <TextBlock Grid.Column="2" Text="{Binding ElapsedTime}" />
 
@@ -203,7 +206,12 @@
                 Margin="5"
                 Name="TextBox"
                 FontSize="{StaticResource FontSize}"
-                Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}" />
+                Text="{Binding InputText, UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Up" Modifiers="Control" Command="{Binding GetPrevTimeStampCommand}" />
+                    <KeyBinding Key="Down" Modifiers="Control" Command="{Binding GetNextTimeStampCommand}" />
+                </TextBox.InputBindings>
+            </TextBox>
 
             <StackPanel Margin="5" Orientation="Horizontal">
 
